@@ -6,25 +6,31 @@ using System;
 public enum SoundType
 {
     RifleShot,
-    ShotGunShot,
+    ShotgunShot,
     PistolShot,
     Reloading,
     Swing,
     Hit,
     Damage,
     Death,
+    Button,
+    Switch,
     Item,
     FootStep,
     Spaceship,
+    SpaceshipLightShot,
+    SpaceshipHeavyShot,
+    Boost,
+    Money,
     CalmMusic,
     BattleMusic
 }
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField] private SoundList[] soundList;
     public AudioSource audioSource;
     public AudioSource MusicAudioSource;// for playing music
+    public AudioSource LoopAudioSource;// for looping sounds
     private void Start()
     {
         //play music on start
@@ -85,6 +91,40 @@ public class AudioManager : Singleton<AudioManager>
         audioSource.Stop();
         audioSource.volume = startVolume; // Resets the volume
     }
+    #region Loop sound
+    public static void PlayLoopSound(SoundType sound, float volume = 1f)
+    {
+        AudioClip clip = Instance.soundList[(int)sound].Sound;
+        if (clip != null)
+        {
+            Instance.MusicAudioSource.clip = clip; // Assign the clip to the audio source
+            Instance.MusicAudioSource.volume = volume; // Set the volume
+            Instance.MusicAudioSource.loop = true; // Enable looping
+            Instance.MusicAudioSource.Play(); // Play the clip
+        }
+        else
+        {
+            Debug.LogWarning($"Music not found for: {sound}");
+        }
+    }
+    public static void StopLoopSoundGradually(float fadeDuration = 2f)
+    {
+        Instance.StartCoroutine(FadeOutLoopSound(fadeDuration));
+    }
+    public static IEnumerator FadeOutLoopSound(float duration)
+    {
+        AudioSource loopAudioSource = Instance.MusicAudioSource;
+        float startVolume = loopAudioSource.volume;
+
+        while (loopAudioSource.volume > 0)
+        {
+            loopAudioSource.volume -= startVolume * Time.deltaTime / duration;
+            yield return null;
+        }
+        loopAudioSource.Stop();
+        loopAudioSource.volume = startVolume; // Resets the volume
+    }
+    #endregion
 }
 [Serializable]
 public struct SoundList
