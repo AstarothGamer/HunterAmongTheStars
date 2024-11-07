@@ -14,6 +14,7 @@ public enum SoundType
     Damage,
     Death,
     Button,
+    Button2,
     Switch,
     Item,
     FootStep,

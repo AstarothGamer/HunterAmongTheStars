@@ -1,4 +1,5 @@
 using Unity.Cinemachine;
+using System.Collections;
 using UnityEngine;
 
 public class MissionPoint : MonoBehaviour
@@ -42,11 +43,11 @@ public class MissionPoint : MonoBehaviour
         Debug.Log("Planet Selected: " + gameObject.name);
         planetRenderer.material.color = originalColor;
         planetCam.Priority = 20;
+
         MissionManager.Instance.DisplayMissionUI(this);
-        ShipMovement.Instance.SelectPlanet(transform);
+        MissionManager.Instance.SelectPlanet(transform);
         AssignMission();
     }
-
     void AssignMission()
     {
         Debug.Log("Assigning a random mission to the planet...");
