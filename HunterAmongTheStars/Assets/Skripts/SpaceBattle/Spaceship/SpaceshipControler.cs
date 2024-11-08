@@ -2,6 +2,7 @@ using Unity.Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class SpaceshipControler : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class SpaceshipControler : MonoBehaviour
     private float modifier;
     public float boost = 1.5f;
     public bool FOV;
+    public float normalFOV = 60f;
+    public float changedFOV = 80f;
     public ParticleSystem speedEffect;
 
     public float forwardAcceleration = 2.5f;
@@ -38,15 +41,15 @@ public class SpaceshipControler : MonoBehaviour
     {
         Center.x = Screen.width * 0.5f;
         Center.y = Screen.height * 0.5f;
-        
-        /*
-        if (FOV)
-        Cam.m_Lens.FieldOfView = 60f;
+
         modifier = 1f;
-        noise = Cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        Cam.Lens.FieldOfView = normalFOV;
+        FOV = false;
+
+        noise = Cam.GetComponent<CinemachineBasicMultiChannelPerlin>();
         if (noise != null)
-        noise.m_FrequencyGain = 0f;  // Shake speed
-        */
+        noise.FrequencyGain = 0;  // Shake
 
         Cursor.lockState = CursorLockMode.Confined;
     }
@@ -74,35 +77,47 @@ public class SpaceshipControler : MonoBehaviour
             modifier = boost;
             AudioManager.PlayMusic(SoundType.Spaceship, 0.6f);
 
-            /*
+            FOV = true;
+            
             if (noise != null)
-                noise.m_FrequencyGain = 1.8f;  // Shake speed
-            if (FOV)
-                Cam.m_Lens.FieldOfView = 70f;
+                noise.FrequencyGain = 1.8f;  // Shake
+            
+
             if (speedEffect != null)
                 speedEffect.Play();
-            */
+
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || (Input.GetKeyUp(KeyCode.LeftControl)))
         {
             modifier = 1;
             AudioManager.StopMusicGradually(0.7f);
 
-            /*
+            FOV = false;
+            
             if (noise != null)
-                noise.m_FrequencyGain = 0f;  // Shake speed
-            if (FOV)
-                Cam.m_Lens.FieldOfView = 60f;
+                noise.FrequencyGain = 0f;  // Shake
+            
+
             if (speedEffect != null)
                 speedEffect.Stop();
-            */
+
         }
+
+        if (FOV)
+        {
+            Cam.Lens.FieldOfView = Mathf.Lerp(Cam.Lens.FieldOfView, changedFOV, 10f * Time.deltaTime);
+        }
+        else
+        {
+            Cam.Lens.FieldOfView = Mathf.Lerp(Cam.Lens.FieldOfView, normalFOV, 10f * Time.deltaTime);
+        }
+        
 
         Move();
     }
     void Move()
     {
-        transform.position += transform.forward * verticalInput /* modifier */ * Time.deltaTime;
+        transform.position += transform.forward * verticalInput * modifier * Time.deltaTime;
         transform.position += transform.right * horizontalInput * Time.deltaTime;
         transform.position += transform.up * anotherInput * Time.deltaTime;
     }

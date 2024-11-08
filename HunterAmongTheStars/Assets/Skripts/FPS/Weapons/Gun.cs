@@ -9,19 +9,24 @@ public class Gun : MonoBehaviour
     public Animator anim;
     private CinemachineBasicMultiChannelPerlin noise;
     public int bulletsPerShot = 1;
-    public float attackSpeed = 0.5f;
+    public float attackTime = 0.5f;
     public float range = 50f;
     public float damage = 5f;
-    public float spread = 0.05f;
+    public float spread = 0f;
+
+    [Header("Aiming Settings")]
+    public float normalFOV = 60f;
+    public float aimFOV = 40f;
+    public float aimTransitionSpeed = 10f; // Speed for the aiming transition
 
     [Header("Ammo Info")]
-    public float reloadSpeed = .7f;
+    public float reloadTime = .7f;
     public int maxAmmo = 15;
 
     [Header("Sound Effects")]
     public bool RifleSound = true;
     public bool PistolSound = false;
-    public bool ShotGunSound = false;
+    public bool ShotgunSound = false;
 
     [Header("Visual Effects")]
     public ParticleSystem GunSmoke;
@@ -39,17 +44,12 @@ public class Gun : MonoBehaviour
     [SerializeField] protected float nextShotMinTime = 0; //when can the next attack be fired
     [SerializeField] protected bool isReloading;
 
-    [Header("Aiming Settings")]
-    public float normalFOV = 60f;
-    public float aimFOV = 40f;
-    public float aimTransitionSpeed = 10f; // Speed for the aiming transition
-
 
     protected void Awake()
     {
         currentAmmo = maxAmmo;
+        if (muzzleFlashLight != null )
         muzzleFlashLight.enabled = false;
-        //Cam.m_Lens.FieldOfView = normalFOV;
     }
 
     public virtual void Reload()
@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         anim.SetBool("Reloading", true);
-        yield return new WaitForSeconds(reloadSpeed);
+        yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
         isReloading = false;
@@ -80,6 +80,7 @@ public class Gun : MonoBehaviour
         {
             Reload();
         }
+        /*
         if (Input.GetMouseButton(1) && !isReloading)
         {
             Aim();
@@ -88,11 +89,8 @@ public class Gun : MonoBehaviour
         {
             StopAiming();
         }
-        /*if (isAiming)
-            PlayerCam.Instance.currentSensitivity = 150f;
-        else
-            PlayerCam.Instance.currentSensitivity = PlayerCam.Instance.Sensitivity;
         */
+
         if (Input.GetButtonDown("Fire1") && !isReloading)
         {
             if (currentAmmo <= 0)
@@ -108,28 +106,15 @@ public class Gun : MonoBehaviour
         }
 
     }
-    public virtual void Aim()
-    {
-        // Smoothly transition the camera's FOV when aiming
-        //Cam.m_Lens.FieldOfView = Mathf.Lerp(Cam.m_Lens.FieldOfView, aimFOV, Time.deltaTime * aimTransitionSpeed);
-        //anim.SetBool("Aiming", true); // Set the animation to aim
-    }
-
-    public virtual void StopAiming()
-    {
-        // Reset the FOV to the normal state when not aiming
-        //Cam.m_Lens.FieldOfView = Mathf.Lerp(Cam.m_Lens.FieldOfView, normalFOV, Time.deltaTime * aimTransitionSpeed);
-        //anim.SetBool("Aiming", false); // Reset the aiming animation
-    }
 
     public virtual void Attack()
     {
         if (RifleSound)
-            AudioManager.PlaySound(SoundType.RifleShot, 0.9f);
-        if (ShotGunSound)
-            AudioManager.PlaySound(SoundType.ShotgunShot, 0.8f);
+            AudioManager.PlaySound(SoundType.RifleShot, 0.5f);
+        if (ShotgunSound)
+            AudioManager.PlaySound(SoundType.ShotgunShot, 0.6f);
         if (PistolSound)
-            AudioManager.PlaySound(SoundType.PistolShot, 0.8f);
+            AudioManager.PlaySound(SoundType.PistolShot, 0.5f);
         for (int i = 0; i < bulletsPerShot; i++)
         {
             //Spread
@@ -161,10 +146,12 @@ public class Gun : MonoBehaviour
         if (MuzleFlash != null)
             MuzleFlash.Play();
         // Trigger the flash
-        StartCoroutine(Flash());
-        nextShotMinTime = Time.time + attackSpeed;
+        if (muzzleFlashLight != null)
+            StartCoroutine(Flash());
+        nextShotMinTime = Time.time + attackTime;
         currentAmmo--;
-        EjectShell();
+        if (shellEjectionPoint != null && shellPrefab != null)
+            EjectShell();
     }
     private IEnumerator Flash()
     {

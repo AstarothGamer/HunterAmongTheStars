@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 140466843}
   - component: {fileID: 140466842}
   - component: {fileID: 140466841}
+  - component: {fileID: 140466844}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -146,8 +147,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140466839}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0.13881485, y: -3.6132676e-15, z: 8.276298e-16, w: 0.99031836}
+  m_LocalPosition: {x: 0, y: 1.4, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Composition:
-    ScreenPosition: {x: 0, y: 0}
+    ScreenPosition: {x: 0, y: 0.02}
     DeadZone:
       Enabled: 0
       Size: {x: 0.2, y: 0.2}
@@ -200,7 +201,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 0.2, y: 0.2, z: 0.2}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
+  FollowOffset: {x: 0, y: 1.4, z: -4.5}
 --- !u!114 &140466843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +245,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &140466844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140466839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 1
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &152967064
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +348,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152967064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0.13881485, y: -3.5673487e-15, z: 5.0004225e-16, w: 0.99031836}
+  m_LocalPosition: {x: 0, y: 1.4, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -763,12 +781,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d604db932c9f844953af9a5238b6d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cam: {fileID: 0}
+  Cam: {fileID: 140466843}
   forwardSpeed: 10
   strafeSpeed: 5
   howerSpeed: 4
   boost: 1.7
-  FOV: 0
+  FOV: 1
+  normalFOV: 60
+  changedFOV: 80
   speedEffect: {fileID: 0}
   forwardAcceleration: 2.5
   strafeAcceleration: 2

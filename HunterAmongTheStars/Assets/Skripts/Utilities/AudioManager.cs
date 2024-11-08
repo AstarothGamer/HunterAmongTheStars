@@ -32,12 +32,21 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource audioSource;
     public AudioSource MusicAudioSource;// for playing music
     public AudioSource LoopAudioSource;// for looping sounds
-    private void Start()
+    void Awake()
     {
         //play music on start
+
+        // Check if another instance of the singleton exists
+        if (Instance != this)
+        {
+            Destroy(gameObject);  // Destroy the new instance
+            return;
+        }
+        DontDestroyOnLoad(gameObject);  // Keep this instance across scene loads
     }
     public static void PlaySound(SoundType sound, float volume = 1)
     {
+
         AudioClip clip = Instance.soundList[(int)sound].Sound;
         if (clip != null)
         {
