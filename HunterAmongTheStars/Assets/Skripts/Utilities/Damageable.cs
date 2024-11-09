@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Damageable : MonoBehaviour
 {
     public float currentHealth;
@@ -28,6 +29,7 @@ public class Damageable : MonoBehaviour
         if (isDead || !isVulnerable || damage <= 0)
             return;
 
+        Debug.Log("damage");
         currentHealth -= damage;
         //AudioManager.PlaySoundAtPoint(SoundType.Damage, gameObject.transform.position, 0.8f);
 

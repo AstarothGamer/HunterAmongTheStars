@@ -34,6 +34,7 @@ public class Gun : MonoBehaviour
     public Light muzzleFlashLight;
     public float flashDuration = 0.05f;
     public float shakeDuration = 2.5f;
+    public float shakeAmplitude = 1f;
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] GameObject shellPrefab;
     [SerializeField] GameObject Impact;
@@ -67,6 +68,8 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         anim.SetBool("Reloading", true);
+        AudioManager.PlaySound(SoundType.Reloading, 0.5f);
+
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
@@ -128,13 +131,13 @@ public class Gun : MonoBehaviour
             {
                 Debug.Log(hit.transform.name);
 
-                /*Damageable target = hit.transform.GetComponent<Damageable>();
+                Damageable target = hit.transform.GetComponent<Damageable>();
                 if (target != null)
                 {
                     Debug.Log("Damaging");
                     target.Damage(damage);
                 }
-                */
+                
                 Instantiate(Impact, hit.point, Quaternion.identity);
             }
 
@@ -148,8 +151,12 @@ public class Gun : MonoBehaviour
         // Trigger the flash
         if (muzzleFlashLight != null)
             StartCoroutine(Flash());
+        //if (shakeDuration != 0 && shakeAmplitude != 0)
+            //CamShake.Instance.Shake(shakeDuration, shakeAmplitude);
+
         nextShotMinTime = Time.time + attackTime;
         currentAmmo--;
+
         if (shellEjectionPoint != null && shellPrefab != null)
             EjectShell();
     }

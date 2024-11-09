@@ -21,6 +21,9 @@ public class MissionPoint : MonoBehaviour
     }
     void OnMouseOver()
     {
+        if (ShipMovement.Instance.isMoving)
+            return;
+
         // Change the color of the planet
         if (!InFocus)
         planetRenderer.material.color = highlightColor;
@@ -46,6 +49,7 @@ public class MissionPoint : MonoBehaviour
 
         MissionManager.Instance.DisplayMissionUI(this);
         MissionManager.Instance.SelectPlanet(transform);
+        ShipMovement.Instance.SelectPlanet(transform);
         AssignMission();
     }
     void AssignMission()
@@ -61,6 +65,5 @@ public class MissionPoint : MonoBehaviour
         InFocus = false;
         planetCam.Priority = 1;
         MissionManager.Instance.CloseMissionUI();
-
     }
 }

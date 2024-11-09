@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New MiniGame", menuName = "ScriptableObjects/MiniGame")]
+[CreateAssetMenu(fileName = "New MiniGame", menuName = "Scriptable Objects/MiniGame")]
 public class MiniGame : ScriptableObject
 {
     [Header("Description")]

@@ -1,17 +1,24 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class MissionManager : Singleton<MissionManager>
 {
-    public MiniGame mission;
-    public MissionPoint missionPoint;
     private Transform currentPlanet;
     private Transform targetPlanet;
     public KeyCode moveButton = KeyCode.Space;
+
+    [Header("Mini games")]
+    public List<MiniGame> encounters;
+    public MiniGame mission;
+    public MissionPoint missionPoint;
+
+    [Header("UI")]
     public GameObject missionUI;
-    public GameObject MoveButton;
-    public GameObject StartButton;
+    [SerializeField] GameObject MoveButton;
+    [SerializeField] GameObject StartButton;
     [SerializeField] TextMeshProUGUI NameText;
     [SerializeField] TextMeshProUGUI DescriptionText;
     void Awake()
@@ -32,7 +39,13 @@ public class MissionManager : Singleton<MissionManager>
         missionUI.SetActive(true);
         NameText.text = mission.Name;
         DescriptionText.text = mission.Description;
-        if (targetPlanet != currentPlanet)
+
+        if (targetPlanet == currentPlanet && targetPlanet != null)
+        {
+            MoveButton.SetActive(false);
+            StartButton.SetActive(true);
+        }
+        else
         {
             MoveButton.SetActive(true);
             StartButton.SetActive(false);
@@ -45,6 +58,7 @@ public class MissionManager : Singleton<MissionManager>
         missionUI.SetActive(false);
         NameText.text = null;
         DescriptionText.text = null;
+        targetPlanet = null;
     }
     public void ArriveAtPlanet()
     {
@@ -70,5 +84,23 @@ public class MissionManager : Singleton<MissionManager>
     {
         // Assign the selected planet as the target
         targetPlanet = planet;
+    }
+    public void RandomEvent()
+    {
+        StartCoroutine(Encounter());
+    }
+    private IEnumerator Encounter()
+    {
+        Debug.Log("RandomEvent");
+        float randomTime = Random.Range(1f, 2f);
+
+        yield return new WaitForSeconds(randomTime);
+
+        if (Random.Range(0, 100) < 35) // 35% chance of being an alien parasite
+        {
+            int E = Random.Range(0, encounters.Count);
+
+            SceneLoader.Instance.LoadScene(encounters[E].Scene);
+        }
     }
 }

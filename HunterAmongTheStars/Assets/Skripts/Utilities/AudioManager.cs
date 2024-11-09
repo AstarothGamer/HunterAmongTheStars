@@ -21,6 +21,7 @@ public enum SoundType
     Spaceship,
     SpaceshipLightShot,
     SpaceshipHeavyShot,
+    SpaceshipLightReloading,
     Boost,
     Money,
     CalmMusic,
