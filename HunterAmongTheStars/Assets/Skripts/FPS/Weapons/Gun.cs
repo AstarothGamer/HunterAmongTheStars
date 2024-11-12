@@ -10,7 +10,7 @@ public class Gun : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin noise;
     public int bulletsPerShot = 1;
     public float attackTime = 0.5f;
-    public float range = 50f;
+    public float range = 70f;
     public float damage = 5f;
     public float spread = 0f;
 

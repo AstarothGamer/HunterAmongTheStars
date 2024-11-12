@@ -10,7 +10,7 @@ public class EnemyAI : Damageable
     public AIState currentState;
 
     public float sightRange = 35f;
-    public float attackRange = 15f;
+    public float attackRange = 25f;
     public Transform[] patrolPoints;
 
     private NavMeshAgent agent;
@@ -25,7 +25,7 @@ public class EnemyAI : Damageable
 
     [Header("General")]
     public float ShootCooldown = 2f;
-    public float projectileSpeed = 20f;
+    public float projectileSpeed = 40f;
     public int projectilesPerShot = 1;
     public float projectileLifetime = 3;
     public float projectileSpread = 0.5f;

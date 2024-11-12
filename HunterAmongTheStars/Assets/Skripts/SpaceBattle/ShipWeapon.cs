@@ -22,9 +22,8 @@ public class ShipWeapon : MonoBehaviour
     public int maxAmmo = 15;
 
     [Header("Sound Effects")]
-    public bool RifleSound = true;
-    public bool PistolSound = false;
-    public bool ShotGunSound = false;
+    public bool LightShot = true;
+    public bool HeavyShot = false;
 
     [Header("Visual Effects")]
     public ParticleSystem MuzleFlash;
@@ -38,6 +37,7 @@ public class ShipWeapon : MonoBehaviour
     [SerializeField] protected int currentAmmo;
     [SerializeField] protected float nextShotMinTime = 0; //when can the next attack be fired
     [SerializeField] protected bool isReloading;
+    public Transform lockOnTarget;
 
     protected void Awake()
     {
@@ -57,10 +57,11 @@ public class ShipWeapon : MonoBehaviour
         StartCoroutine(DoReload(reloadAmount));
     }
 
-
     protected IEnumerator DoReload(int reloadAmount)
     {
         isReloading = true;
+        AudioManager.PlaySoundAtPoint(SoundType.SpaceshipLightReloading, projectileSpawnpoint.position, 1f);
+
         yield return new WaitForSeconds(reloadSpeed);
 
         currentAmmo += reloadAmount;
@@ -89,16 +90,13 @@ public class ShipWeapon : MonoBehaviour
 
     }
 
-
-
     public virtual void Attack()
     {
-        if (RifleSound)
-            AudioManager.PlaySoundAtPoint(SoundType.RifleShot, projectileSpawnpoint.position, 0.9f);
-        if (ShotGunSound)
-            AudioManager.PlaySoundAtPoint(SoundType.ShotgunShot, projectileSpawnpoint.position, 0.8f);
-        if (PistolSound)
-            AudioManager.PlaySoundAtPoint(SoundType.PistolShot, projectileSpawnpoint.position, 0.8f);
+        if (LightShot)
+            AudioManager.PlaySoundAtPoint(SoundType.SpaceshipLightShot, projectileSpawnpoint.position, 0.9f);
+        if (HeavyShot)
+            AudioManager.PlaySoundAtPoint(SoundType.SpaceshipHeavyShot, projectileSpawnpoint.position, 0.8f);
+
         for (int i = 0; i < projectilesPerShot; i++)
         {
             var go = Instantiate(projectilePrefab, projectileSpawnpoint.position, GetProjectileDirection());
@@ -128,8 +126,20 @@ public class ShipWeapon : MonoBehaviour
     protected Quaternion GetProjectileDirection()
     {
 
-        var variation = Random.Range(-projectileSpread, projectileSpread);
-        return Quaternion.Euler(projectileSpawnpoint.rotation.eulerAngles + Vector3.forward * variation);
+        if (lockOnTarget != null)
+        {
+            Vector3 directionToTarget = (lockOnTarget.position - projectileSpawnpoint.position).normalized;
+            return Quaternion.LookRotation(directionToTarget);
+        }
+        else
+        {
+            float variation = Random.Range(-projectileSpread, projectileSpread);
+            return Quaternion.Euler(projectileSpawnpoint.rotation.eulerAngles + Vector3.forward * variation);
+        }
+    }
+    public void SetTarget(Transform target)
+    {
+        lockOnTarget = target;
     }
     private IEnumerator Flash()
     {

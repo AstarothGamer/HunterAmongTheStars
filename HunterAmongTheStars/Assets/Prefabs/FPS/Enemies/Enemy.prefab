@@ -143,17 +143,16 @@ MonoBehaviour:
   isVulnerable: 1
   Remains: {fileID: 4404576582971942366, guid: 3cdd40a63cb17ed45a16180f46f2d569, type: 3}
   currentState: 0
-  health: 100
-  sightRange: 35
-  attackRange: 15
+  sightRange: 50
+  attackRange: 25
   patrolPoints: []
   projectilePrefab: {fileID: 8654408248102127676, guid: 5fa6c85023735904fa12f37357d2cfa9, type: 3}
   projectileSpawnpoint: {fileID: 156350343953347695}
-  ShootCooldown: 1
-  projectileSpeed: 20
+  ShootCooldown: 0.5
+  projectileSpeed: 40
   projectilesPerShot: 1
   projectileLifetime: 3
-  projectileSpread: 2
+  projectileSpread: 1
   damage: 25
   RifleSound: 1
   PistolSound: 0

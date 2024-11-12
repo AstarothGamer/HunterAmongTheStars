@@ -2,7 +2,6 @@ using Unity.Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class SpaceshipControler : MonoBehaviour
 {
@@ -72,10 +71,10 @@ public class SpaceshipControler : MonoBehaviour
         verticalInput = Mathf.Lerp(verticalInput, Input.GetAxis("Vertical") * forwardSpeed, forwardAcceleration * Time.deltaTime); // W and S keys
         anotherInput = Mathf.Lerp(anotherInput, Input.GetAxis("Hover") * howerSpeed, howerAcceleration * Time.deltaTime); // Space and left alt keys
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.LeftControl)) && Input.GetAxis("Vertical") > 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.Space)) && Input.GetAxis("Vertical") > 0)
         {
             modifier = boost;
-            AudioManager.PlayMusic(SoundType.Spaceship, 0.6f);
+            AudioManager.PlayLoopSound(SoundType.Boost, 0.6f);
 
             FOV = true;
             
@@ -87,10 +86,10 @@ public class SpaceshipControler : MonoBehaviour
                 speedEffect.Play();
 
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || (Input.GetKeyUp(KeyCode.LeftControl)))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || (Input.GetKeyUp(KeyCode.Space)))
         {
             modifier = 1;
-            AudioManager.StopMusicGradually(0.7f);
+            AudioManager.StopLoopSoundGradually(0.7f);
 
             FOV = false;
             
