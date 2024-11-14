@@ -142,6 +142,8 @@ MonoBehaviour:
   isDead: 0
   isVulnerable: 1
   Remains: {fileID: 4404576582971942366, guid: 3cdd40a63cb17ed45a16180f46f2d569, type: 3}
+  CheckForWalls: 1
+  distanceToWalls: 15
   currentState: 0
   sightRange: 50
   attackRange: 30

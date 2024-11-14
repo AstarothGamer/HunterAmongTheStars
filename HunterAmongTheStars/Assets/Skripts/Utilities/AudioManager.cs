@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public enum SoundType
 {
@@ -28,16 +27,55 @@ public enum SoundType
     CalmMusic,
     BattleMusic
 }
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
     [SerializeField] private SoundList[] soundList;
     public AudioSource audioSource;
     public AudioSource MusicAudioSource;// for playing music
     public AudioSource LoopAudioSource;// for looping sounds
+                                       
+    private static AudioManager _instance;
+
+    #region Singleton
+    public static AudioManager Instance
+    {
+        get
+        {
+            // Check if the instance is already created
+            if (_instance == null)
+            {
+                // Try to find an existing AudioManager in the scene
+                _instance = FindAnyObjectByType<AudioManager>();
+
+                // If no AudioManager exists, create a new one
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("AudioManager");
+                    _instance = singletonObject.AddComponent<AudioManager>();
+                }
+
+                // Make the AudioManager persist across scenes (optional)
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
     void Awake()
     {
-
+        // If the instance is already set, destroy this duplicate object
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;  // Assign this object as the instance
+        }
     }
+    #endregion
+
     public static void PlaySound(SoundType sound, float volume = 1)
     {
         if (Instance.soundList == null || Instance.soundList.Length <= (int)sound)

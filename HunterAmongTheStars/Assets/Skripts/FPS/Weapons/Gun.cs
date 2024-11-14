@@ -51,6 +51,7 @@ public class Gun : MonoBehaviour
         currentAmmo = maxAmmo;
         if (muzzleFlashLight != null )
         muzzleFlashLight.enabled = false;
+
     }
 
     public virtual void Reload()

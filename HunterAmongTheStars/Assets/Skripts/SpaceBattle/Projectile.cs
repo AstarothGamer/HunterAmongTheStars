@@ -1,3 +1,4 @@
+using UnityEditorInternal.VersionControl;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -6,6 +7,7 @@ public partial class Projectile : MonoBehaviour
     //these values are set by the weapon shooting them
     public float damage;
     public float speed;
+    public bool shootThrough;
     [SerializeField] GameObject impactEffect;
 
     public virtual void Initialize(float damage, float speed, float duration)
@@ -38,17 +40,17 @@ public partial class Projectile : MonoBehaviour
         }
 
         targetable.Damage(damage);
-        Impact(collision, false);
+        Impact(collision, shootThrough);
     }
 
     //Inheriting classes can override this to have different
     //impact behaviors (such as bouncing on walls, or piercing through enemies)
-    public void Impact(Collider collision, bool hit)
+    public void Impact(Collider collision, bool through)
     {
         if (impactEffect)
             Instantiate(impactEffect, transform.position, transform.rotation);
 
-        if (!hit) 
+        if (through) 
         return;
 
         enabled = false;

@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   speed: 0
+  shootFrough: 0
   impactEffect: {fileID: 0}
 --- !u!96 &8227666579330233430
 TrailRenderer:

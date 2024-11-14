@@ -60,7 +60,7 @@ public class ShipMovement : Singleton<ShipMovement>
                 ship.position = Vector3.MoveTowards(ship.position, targetPlanet.position, speed * Time.deltaTime);
 
                 // Check if the ship has reached the planet
-                if (Vector3.Distance(ship.position, targetPlanet.position) < 0.8f)
+                if (Vector3.Distance(ship.position, targetPlanet.position) < 3f)
                 {
                     Arrive();
                 }
