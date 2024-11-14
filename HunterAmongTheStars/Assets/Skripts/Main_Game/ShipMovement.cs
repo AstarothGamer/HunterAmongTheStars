@@ -5,13 +5,11 @@ using UnityEngine;
 public class ShipMovement : Singleton<ShipMovement>
 {
     public Transform ship;
-    private Transform currentPlanet;
     private Transform targetPlanet;
     public float speed = 5f;
     public float rotationSpeed = 2f;
-    private bool isMoving = false;
+    public bool isMoving = false;
     public CinemachineCamera Cam;
-    public KeyCode moveButton = KeyCode.Space;
     public float startDuration = 2.5f;
 
     void Start()
@@ -20,11 +18,6 @@ public class ShipMovement : Singleton<ShipMovement>
     }
     void Update()
     {
-        if (targetPlanet != null && targetPlanet != currentPlanet && Input.GetKeyDown(moveButton) && !isMoving)
-        {
-           StartMovingToPlanet();
-        }
-
          MoveShipToPlanet();
     }
     private IEnumerator Prepare()
@@ -33,11 +26,15 @@ public class ShipMovement : Singleton<ShipMovement>
         
         if (targetPlanet != null)
         isMoving = true;
+
+        MissionManager.Instance.RandomEvent();
     }
-    public void StartMovingToPlanet()
+    public void StartMovingToPlanet(Transform target)
     {
-        if (targetPlanet != null)
+        if (!isMoving)
         {
+            targetPlanet = target;
+
             MissionManager.Instance.missionUI.SetActive(false);
             // Switch to the ship camera
             Cam.Priority = 30;
@@ -46,11 +43,6 @@ public class ShipMovement : Singleton<ShipMovement>
 
             Debug.Log("Ship is moving towards: " + targetPlanet.name);
         }
-    }
-    public void SelectPlanet(Transform planet)
-    {
-        // Assign the selected planet as the target
-        targetPlanet = planet;
     }
 
     void MoveShipToPlanet()
@@ -70,17 +62,21 @@ public class ShipMovement : Singleton<ShipMovement>
                 // Check if the ship has reached the planet
                 if (Vector3.Distance(ship.position, targetPlanet.position) < 0.8f)
                 {
-                    ArriveAtPlanet();
+                    Arrive();
                 }
             }
         }
 
     }
-    void ArriveAtPlanet()
+    void Arrive()
     {
-        MissionManager.Instance.missionUI.SetActive(true);
+        MissionManager.Instance.ArriveAtPlanet();
         isMoving = false;
-        currentPlanet = targetPlanet;
         Cam.Priority = 1;
+    }
+    public void SelectPlanet(Transform planet)
+    {
+        // Assign the selected planet as the target
+        targetPlanet = planet;
     }
 }

@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5625bebe72a1a114cb91750f5cc045bd
+  - enabled: 1
+    path: Assets/Scenes/MainGame.unity
+    guid: 0eec29e40f00ecd448f4b7763b3f48fb
+  - enabled: 1
+    path: Assets/Scenes/FPS.unity
+    guid: e4bfc0a796c8f404589650868d49d7a9
+  - enabled: 1
+    path: Assets/Scenes/SpaceBattle.unity
+    guid: a6556771a133dea4f85b24dd65b0b69b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

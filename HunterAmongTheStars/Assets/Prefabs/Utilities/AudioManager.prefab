@@ -311,19 +311,21 @@ MonoBehaviour:
   - name: ShotgunShot
     Sound: {fileID: 8300000, guid: 2b53ddba0a91ff942bc0d2b3005f609c, type: 3}
   - name: PistolShot
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: 3c4284859988ec34fb5cb8034af9c3b5, type: 3}
   - name: Reloading
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: 0a4a87d4b08ca1f439465d5fa6dbd786, type: 3}
   - name: Swing
     Sound: {fileID: 0}
   - name: Hit
     Sound: {fileID: 8300000, guid: d108b1acfb842774e8898ec1f323a56c, type: 3}
   - name: Damage
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: a2b606313838b6b49bb328acd070ed90, type: 3}
   - name: Death
     Sound: {fileID: 0}
   - name: Button
-    Sound: {fileID: 8300000, guid: 595a4e9812fc9184eb841eee324b7e86, type: 3}
+    Sound: {fileID: 8300000, guid: b39c73834953ec0498a14c9060b880f6, type: 3}
+  - name: Button2
+    Sound: {fileID: 8300000, guid: f8147cfc79f26ae43b23ed6243ba1636, type: 3}
   - name: Switch
     Sound: {fileID: 8300000, guid: e0a19896ca024d847a25e833d6d46b66, type: 3}
   - name: Item
@@ -336,6 +338,8 @@ MonoBehaviour:
     Sound: {fileID: 8300000, guid: 810f3637a59d01243896986945210615, type: 3}
   - name: SpaceshipHeavyShot
     Sound: {fileID: 0}
+  - name: SpaceshipLightReloading
+    Sound: {fileID: 8300000, guid: 9b5c59947273fdb48beb6e19b617706d, type: 3}
   - name: Boost
     Sound: {fileID: 8300000, guid: 2aa0baa2ac4327340bd694ba1a112bf7, type: 3}
   - name: Money

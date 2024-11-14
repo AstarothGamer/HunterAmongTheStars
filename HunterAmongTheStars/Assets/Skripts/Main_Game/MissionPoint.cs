@@ -1,4 +1,5 @@
 using Unity.Cinemachine;
+using System.Collections;
 using UnityEngine;
 
 public class MissionPoint : MonoBehaviour
@@ -20,6 +21,9 @@ public class MissionPoint : MonoBehaviour
     }
     void OnMouseOver()
     {
+        if (ShipMovement.Instance.isMoving)
+            return;
+
         // Change the color of the planet
         if (!InFocus)
         planetRenderer.material.color = highlightColor;
@@ -42,11 +46,12 @@ public class MissionPoint : MonoBehaviour
         Debug.Log("Planet Selected: " + gameObject.name);
         planetRenderer.material.color = originalColor;
         planetCam.Priority = 20;
+
         MissionManager.Instance.DisplayMissionUI(this);
+        MissionManager.Instance.SelectPlanet(transform);
         ShipMovement.Instance.SelectPlanet(transform);
         AssignMission();
     }
-
     void AssignMission()
     {
         Debug.Log("Assigning a random mission to the planet...");
@@ -60,6 +65,5 @@ public class MissionPoint : MonoBehaviour
         InFocus = false;
         planetCam.Priority = 1;
         MissionManager.Instance.CloseMissionUI();
-
     }
 }

@@ -18,9 +18,12 @@ public class SceneLoader : Singleton<SceneLoader>
     }
     IEnumerator TransitionToScene(string name)
     {
+        if (anim != null)
         anim.SetTrigger("Start");
         yield return new WaitForSeconds(1);
 
         SceneManager.LoadScene(name);
+        if (anim != null)
+        anim.SetTrigger("End");
     }
 }
