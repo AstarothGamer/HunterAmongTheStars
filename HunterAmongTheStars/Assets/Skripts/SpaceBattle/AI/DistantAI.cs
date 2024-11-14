@@ -119,8 +119,6 @@ public class DistantAI : ShipAI
 
         currentHealth -= damage;
 
-
-        AudioManager.PlaySoundAtPoint(SoundType.Damage, transform.position, 1f);
         AudioManager.PlaySound(SoundType.Hit, 0.4f);
 
         if (currentHealth <= 0)

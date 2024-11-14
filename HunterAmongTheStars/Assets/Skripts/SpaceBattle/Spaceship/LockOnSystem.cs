@@ -7,6 +7,7 @@ public class LockOnSystem : MonoBehaviour
     public float lockOnAngle = 30f;
     public LayerMask enemyLayer;
     public Transform lockOnTarget;
+    [SerializeField] Camera cam;
 
     [Header("Lock-On Indicators")]
     public GameObject lockOnIndicator; // Optional: indicator for lock-on targets
@@ -41,19 +42,19 @@ public class LockOnSystem : MonoBehaviour
 
     Transform FindLockOnTarget()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, lockOnRange, enemyLayer);
+        Collider[] hits = Physics.OverlapSphere(cam.transform.position, lockOnRange, enemyLayer);
 
         Transform closestTarget = null;
         float closestDistance = lockOnRange;
 
         foreach (var hit in hits)
         {
-            Vector3 directionToTarget = (hit.transform.position - transform.position).normalized;
-            float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
+            Vector3 directionToTarget = (hit.transform.position - cam.transform.position).normalized;
+            float angleToTarget = Vector3.Angle(cam.transform.forward, directionToTarget);
 
             if (angleToTarget < lockOnAngle)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, hit.transform.position);
+                float distanceToTarget = Vector3.Distance(cam.transform.position, hit.transform.position);
                 if (distanceToTarget < closestDistance)
                 {
                     closestTarget = hit.transform;

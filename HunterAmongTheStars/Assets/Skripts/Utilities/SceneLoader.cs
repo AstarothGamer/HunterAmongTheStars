@@ -23,5 +23,7 @@ public class SceneLoader : Singleton<SceneLoader>
         yield return new WaitForSeconds(1);
 
         SceneManager.LoadScene(name);
+        if (anim != null)
+        anim.SetTrigger("End");
     }
 }

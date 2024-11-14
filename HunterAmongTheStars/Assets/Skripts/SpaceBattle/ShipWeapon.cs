@@ -6,6 +6,7 @@ public class ShipWeapon : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnpoint;
+    public Animator anim;
 
 
     [Header("General")]
@@ -26,9 +27,10 @@ public class ShipWeapon : MonoBehaviour
     public bool HeavyShot = false;
 
     [Header("Visual Effects")]
-    public ParticleSystem MuzleFlash;
+    [SerializeField] ParticleSystem MuzleFlash;
     public Light muzzleFlashLight;
     public float flashDuration = 0.05f;
+    [SerializeField] ParticleSystem GunSmoke;
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] GameObject shellPrefab;
 
@@ -43,6 +45,8 @@ public class ShipWeapon : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         //muzzleFlashLight.enabled = false;
+        if (anim == null)
+        anim = GetComponent<Animator>();
     }
 
     public virtual void Reload()
@@ -60,10 +64,16 @@ public class ShipWeapon : MonoBehaviour
     protected IEnumerator DoReload(int reloadAmount)
     {
         isReloading = true;
-        AudioManager.PlaySoundAtPoint(SoundType.SpaceshipLightReloading, projectileSpawnpoint.position, 1f);
+        if (anim != null)
+        anim.SetBool("Reload", true);
+        if (GunSmoke != null)
+        GunSmoke.Play();
+        AudioManager.PlaySound(SoundType.SpaceshipLightReloading, 0.4f);
 
         yield return new WaitForSeconds(reloadSpeed);
 
+        if (anim != null)
+        anim.SetBool("Reload", false);
         currentAmmo += reloadAmount;
         isReloading = false;
     }
@@ -105,6 +115,8 @@ public class ShipWeapon : MonoBehaviour
         }
         if (MuzleFlash != null)
             MuzleFlash.Play();
+        if (anim != null)
+            anim.SetTrigger("Shoot");
         // Trigger the flash
         //StartCoroutine(Flash());
         nextShotMinTime = Time.time + attackSpeed;

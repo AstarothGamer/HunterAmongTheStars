@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public enum SoundType
 {
@@ -35,23 +36,27 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource LoopAudioSource;// for looping sounds
     void Awake()
     {
-        //play music on start
 
-        // Check if another instance of the singleton exists
-        if (Instance != this)
-        {
-            Destroy(gameObject);  // Destroy the new instance
-            return;
-        }
-        DontDestroyOnLoad(gameObject);  // Keep this instance across scene loads
     }
     public static void PlaySound(SoundType sound, float volume = 1)
     {
+        if (Instance.soundList == null || Instance.soundList.Length <= (int)sound)
+        {
+            Debug.LogWarning("Sound list is not properly assigned or the sound index is out of range.");
+            return;
+        }
 
         AudioClip clip = Instance.soundList[(int)sound].Sound;
         if (clip != null)
         {
-            Instance.audioSource.PlayOneShot(clip, volume);
+            if (Instance.audioSource != null)
+            {
+                Instance.audioSource.PlayOneShot(clip, volume);
+            }
+            else
+            {
+                Debug.LogWarning("Audio source is not assigned in the AudioManager.");
+            }
         }
         else
         {
@@ -143,4 +148,3 @@ public struct SoundList
     [SerializeField] private string name;
     [SerializeField] public AudioClip Sound;
 }
-

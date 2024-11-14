@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1247310287831368951}
   - component: {fileID: 5301871804885682703}
   - component: {fileID: 957779440625179825}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: de292d1eaf4d4934ea576cf708a082b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 6668059260158217224}
   - component: {fileID: 2391959892767623806}
   - component: {fileID: 8996316835902364064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,12 +144,12 @@ MonoBehaviour:
   Remains: {fileID: 4404576582971942366, guid: 3cdd40a63cb17ed45a16180f46f2d569, type: 3}
   currentState: 0
   sightRange: 50
-  attackRange: 25
+  attackRange: 30
   patrolPoints: []
   projectilePrefab: {fileID: 8654408248102127676, guid: 5fa6c85023735904fa12f37357d2cfa9, type: 3}
   projectileSpawnpoint: {fileID: 156350343953347695}
   ShootCooldown: 0.5
-  projectileSpeed: 40
+  projectileSpeed: 50
   projectilesPerShot: 1
   projectileLifetime: 3
   projectileSpread: 1
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 3852629244532213877}
   - component: {fileID: 6276051807869826390}
   - component: {fileID: 553966864943921422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8f9ee6e42e2005942a5b092cb9f2087c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 156350343953347695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,6 +358,10 @@ PrefabInstance:
     - target: {fileID: 7888525341341897796, guid: e4ec86ece4c2597459a39626d1ed3ba9, type: 3}
       propertyPath: m_Name
       value: BloodExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888525341341897796, guid: e4ec86ece4c2597459a39626d1ed3ba9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9008161407746355614, guid: e4ec86ece4c2597459a39626d1ed3ba9, type: 3}
       propertyPath: m_LocalPosition.x

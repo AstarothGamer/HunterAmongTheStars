@@ -123,11 +123,12 @@ public class Gun : MonoBehaviour
             //Spread
             float x = Random.Range(-spread, spread);
             float y = Random.Range(-spread, spread);
+            float z = Random.Range(-spread, spread);
 
-            //Calculate Direction with Spread
-            Vector3 direction = Cam.transform.forward + new Vector3(x, y, 0);
+            // Calculate the direction considering spread
+            Vector3 spreadDirection = Cam.transform.forward + new Vector3(x, y, z);
             RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, direction, out hit, range))
+            if (Physics.Raycast(Cam.transform.position, spreadDirection, out hit, range))
             {
                 Debug.Log(hit.transform.name);
 

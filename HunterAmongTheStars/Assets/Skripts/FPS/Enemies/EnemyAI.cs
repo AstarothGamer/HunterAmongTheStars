@@ -195,6 +195,11 @@ public class EnemyAI : Damageable
         {
             Debug.Log("Retreat!!!");
             ChangeState(AIState.Retreat);  // Flee if health is low
+            Invoke("ComeBack", 15f);
         }
+    }
+    void ComeBack()
+    {
+        ChangeState(AIState.Chase);
     }
 }

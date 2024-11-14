@@ -92,14 +92,15 @@ public class MissionManager : Singleton<MissionManager>
     private IEnumerator Encounter()
     {
         Debug.Log("RandomEvent");
-        float randomTime = Random.Range(1f, 2f);
+        float randomTime = Random.Range(1f, 1.5f);
 
         yield return new WaitForSeconds(randomTime);
 
-        if (Random.Range(0, 100) < 35) // 35% chance of being an alien parasite
+        if (Random.Range(0, 100) < 20) // 35% chance of being an alien parasite
         {
             int E = Random.Range(0, encounters.Count);
 
+            Debug.Log("RandomEvent");
             SceneLoader.Instance.LoadScene(encounters[E].Scene);
         }
     }
