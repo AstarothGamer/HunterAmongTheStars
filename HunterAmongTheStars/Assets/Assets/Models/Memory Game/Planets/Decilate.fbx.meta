@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: decilate
-    second: {fileID: 2800000, guid: df40e41d1ed22da40b9b53d3fd62ac95, type: 3}
+    second: {fileID: 2800000, guid: 8023f744b0244e8469f49ed659cff38b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

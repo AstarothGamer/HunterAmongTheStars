@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 2k_venus_surface
-    second: {fileID: 2800000, guid: 3b14161d240e5b44c946a658da325d7d, type: 3}
+    second: {fileID: 2800000, guid: a176d072a58e849469001ac64a9b8cdf, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

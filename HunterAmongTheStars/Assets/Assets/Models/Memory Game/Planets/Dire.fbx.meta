@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: icorn
-    second: {fileID: 2800000, guid: 7d08837fadbf039418961afc0fd56e75, type: 3}
+    second: {fileID: 2800000, guid: 530985e27921c2b47a73bbda89419c52, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: makemake
-    second: {fileID: 2800000, guid: b0845ed4f59dfe94097ac45778951397, type: 3}
+    second: {fileID: 2800000, guid: 9f3ec170ede9e2949a69eda615d6adf1, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Earth_Diffuse_6K
-    second: {fileID: 2800000, guid: 26bf1df582ca93448a3455500898db31, type: 3}
+    second: {fileID: 2800000, guid: f8b6e42752a222044acc859186cd1ec2, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
