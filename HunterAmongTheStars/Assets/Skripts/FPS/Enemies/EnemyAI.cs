@@ -11,6 +11,7 @@ public class EnemyAI : Damageable
 
     public float sightRange = 35f;
     public float attackRange = 25f;
+    public float alertRadius = 20f;
     public Transform[] patrolPoints;
 
     private NavMeshAgent agent;
@@ -18,6 +19,8 @@ public class EnemyAI : Damageable
     private Transform player;
 
     private bool CanShoot;
+    private bool hasAlerted = false;
+
 
     [Header("Weapon")]
     [SerializeField] GameObject projectilePrefab;
@@ -54,7 +57,10 @@ public class EnemyAI : Damageable
         {
             case AIState.Patrol:
                 if (CanSeePlayer())
-                ChangeState(AIState.Chase);
+                {
+                    Alert();
+                    ChangeState(AIState.Chase);
+                }
                 Patrol();
                 break;
 
@@ -179,6 +185,7 @@ public class EnemyAI : Damageable
         if (isDead || !isVulnerable || damage <= 0)
             return;
 
+        Alert();
         currentHealth -= damage;
 
         if (blood != null)
@@ -201,5 +208,20 @@ public class EnemyAI : Damageable
     void ComeBack()
     {
         ChangeState(AIState.Chase);
+    }
+    void Alert()
+    {
+        if (hasAlerted) return;
+
+        Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, alertRadius, LayerMask.GetMask("Enemy"));
+        foreach (Collider enemy in nearbyEnemies)
+        {
+            EnemyAI ai = enemy.GetComponent<EnemyAI>();
+            if (ai != null && ai != this) // Avoid notifying itself
+            {
+                ai.ChangeState(AIState.Chase);
+            }
+        }
+        hasAlerted = true; // Prevent re-alerting in the same event
     }
 }
