@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c633a10821a1e5c49b5b5808ecf6f74c
+guid: 87517584f9084f14ea3bb24ecb852ac5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: decilate
-    second: {fileID: 2800000, guid: 8023f744b0244e8469f49ed659cff38b, type: 3}
+    second: {fileID: 2800000, guid: 418d903771d07b6439628c120b5f44f7, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
