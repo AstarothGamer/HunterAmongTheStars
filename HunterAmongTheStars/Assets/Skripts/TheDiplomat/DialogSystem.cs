@@ -20,7 +20,7 @@ public class DialogSystem : MonoBehaviour
 
     public float timer;
 
-    private int gameScore;
+    [SerializeField] private int gameScore;
     private int questionAsked;
 
     void Awake()
