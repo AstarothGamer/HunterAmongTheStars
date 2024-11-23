@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Skorbin
-    second: {fileID: 2800000, guid: abcfaacbe9810c84192aeb0027dd9209, type: 3}
+    second: {fileID: 2800000, guid: b4fdf6afde6a7d7418602a64db89e218, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: haumea
-    second: {fileID: 2800000, guid: 55e0512b0c87da54fb65c2edde6727d5, type: 3}
+    second: {fileID: 2800000, guid: 7480bd2d428f3dd44b43a61b0f66733b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
