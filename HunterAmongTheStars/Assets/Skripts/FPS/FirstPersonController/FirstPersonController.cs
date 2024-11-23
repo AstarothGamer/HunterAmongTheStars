@@ -1,10 +1,4 @@
-﻿// CHANGE LOG
-// 
-// CHANGES || version VERSION
-//
-// "Enable/Disable Headbob, Changed look rotations - should result in reduced camera jitters" || version 1.0.1
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,7 +27,6 @@ public class FirstPersonController : MonoBehaviour
     public bool lockCursor = true;
     public bool crosshair = true;
     public Sprite crosshairImage;
-    public Color crosshairColor = Color.white;
 
     // Internal Variables
     private float yaw = 0.0f;
@@ -174,14 +167,9 @@ public class FirstPersonController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if(crosshair)
+        if(!crosshair)
         {
-            crosshairObject.sprite = crosshairImage;
-            crosshairObject.color = crosshairColor;
-        }
-        else
-        {
-            crosshairObject.gameObject.SetActive(false);
+            crosshairObject.gameObject.SetActive(false); ;
         }
 
         #region Sprint Bar

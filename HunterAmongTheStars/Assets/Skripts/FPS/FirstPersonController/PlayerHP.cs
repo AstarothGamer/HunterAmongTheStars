@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,8 +22,32 @@ public class PlayerHP : MonoBehaviour
     private float healthBarWidth;
     private float healthBarHeight;
 
+    [Header("Damage Overlay")]
+    public bool useDamageOverlay = true;
+    private bool showOverlay;
+    public float DamageOverlayDuration = 1f;
+    public CanvasGroup DamageOverlayCG;
+
+    [Header("Death screen")]
+    public GameObject DeathScreen;
+
     protected void Start()
     {
+        #region Damage Overlay
+
+        if (useDamageOverlay)
+        {
+            DamageOverlayCG.gameObject.SetActive(true);
+
+            DamageOverlayCG.alpha = 0;
+        }
+        else
+        {
+            DamageOverlayCG.gameObject.SetActive(false);
+        }
+
+        #endregion
+
         #region Health Bar
 
         if (useHealthBar)
@@ -53,6 +76,9 @@ public class PlayerHP : MonoBehaviour
         }
 
         #endregion
+
+        if (DeathScreen != null)
+        DeathScreen.SetActive(false);
     }
     protected void Awake()
     {
@@ -65,6 +91,7 @@ public class PlayerHP : MonoBehaviour
 
         if (hideBar)
         showBar = false;
+        showOverlay = false;
     }
 
     public virtual void Update()
@@ -80,6 +107,10 @@ public class PlayerHP : MonoBehaviour
         {
             healtBarCG.alpha -= 3 * Time.deltaTime;
         }
+        if (useDamageOverlay && !showOverlay)// to hide the bar
+        {
+            DamageOverlayCG.alpha -= 3 * Time.deltaTime;
+        }
     }
 
     // Damage the player and trigger the health bar visability
@@ -94,9 +125,16 @@ public class PlayerHP : MonoBehaviour
         {
             Death();
         }
-        else if (hideBar && useHealthBar)// to show the bar
+        else
         {
-            StartCoroutine(ShowHealthBar()); 
+            if (hideBar && useHealthBar)// to show the bar
+            {
+                StartCoroutine(ShowHealthBar());
+            }
+            if (useDamageOverlay)// to show the bar
+            {
+                StartCoroutine(ShowDamageOverlay());
+            }
         }
     }
     private IEnumerator ShowHealthBar()
@@ -107,6 +145,15 @@ public class PlayerHP : MonoBehaviour
         yield return new WaitForSeconds(healthBarDuration);
 
         showBar = false;
+    }
+    private IEnumerator ShowDamageOverlay()
+    {
+        DamageOverlayCG.alpha = 1;
+        showOverlay = true;
+
+        yield return new WaitForSeconds(DamageOverlayDuration);
+
+        showOverlay = false;
     }
 
     public void HealPlayer(float amount)
@@ -124,7 +171,27 @@ public class PlayerHP : MonoBehaviour
 
     public virtual void Death()
     {
+        if (isDead) return; // Prevent multiple death calls
+
         isDead = true;
+
+        // Detach the camera from the player
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            mainCamera.transform.parent = null; // Detach from player
+        }
+
+        Cursor.lockState = CursorLockMode.None;
+        //DisablePlayerControls();
+
+        // Show death screen
+        if (DeathScreen != null)
+        {
+            DeathScreen.SetActive(true);
+        }
+
+        // Disable player object
         gameObject.SetActive(false);
     }
 }

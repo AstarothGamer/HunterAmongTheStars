@@ -39,7 +39,7 @@ public class ShipWeapon : MonoBehaviour
     [SerializeField] protected int currentAmmo;
     [SerializeField] protected float nextShotMinTime = 0; //when can the next attack be fired
     [SerializeField] protected bool isReloading;
-    public Transform lockOnTarget;
+    [HideInInspector] public Transform lockOnTarget;
 
     protected void Awake()
     {

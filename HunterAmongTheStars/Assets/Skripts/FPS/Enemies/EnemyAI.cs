@@ -11,6 +11,7 @@ public class EnemyAI : Damageable
 
     public float sightRange = 35f;
     public float attackRange = 25f;
+    public float alertRadius = 20f;
     public Transform[] patrolPoints;
 
     private NavMeshAgent agent;
@@ -18,6 +19,8 @@ public class EnemyAI : Damageable
     private Transform player;
 
     private bool CanShoot;
+    private bool hasAlerted = false;
+
 
     [Header("Weapon")]
     [SerializeField] GameObject projectilePrefab;
@@ -54,7 +57,10 @@ public class EnemyAI : Damageable
         {
             case AIState.Patrol:
                 if (CanSeePlayer())
-                ChangeState(AIState.Chase);
+                {
+                    Alert();
+                    ChangeState(AIState.Chase);
+                }
                 Patrol();
                 break;
 
@@ -137,8 +143,16 @@ public class EnemyAI : Damageable
     }
     protected Quaternion GetProjectileDirection(float currentAccuracy)
     {
-        float adjustedSpread = Random.Range(-currentAccuracy, currentAccuracy);
-        return Quaternion.Euler(projectileSpawnpoint.rotation.eulerAngles + Vector3.forward * adjustedSpread);
+        // Generate random offsets for pitch (x-axis) and yaw (y-axis)
+        float spreadX = Random.Range(-currentAccuracy, currentAccuracy); // Vertical spread
+        float spreadY = Random.Range(-currentAccuracy, currentAccuracy); // Horizontal spread
+
+        // Apply the spread to the spawnpoint's forward direction
+        return Quaternion.Euler(
+            projectileSpawnpoint.rotation.eulerAngles.x + spreadX,
+            projectileSpawnpoint.rotation.eulerAngles.y + spreadY,
+            projectileSpawnpoint.rotation.eulerAngles.z
+        );
     }
 
     void Retreat()
@@ -179,7 +193,9 @@ public class EnemyAI : Damageable
         if (isDead || !isVulnerable || damage <= 0)
             return;
 
+        Alert();
         currentHealth -= damage;
+        Debug.Log("Received " + damage + " damage");
 
         if (blood != null)
         blood.Play();
@@ -201,5 +217,20 @@ public class EnemyAI : Damageable
     void ComeBack()
     {
         ChangeState(AIState.Chase);
+    }
+    void Alert()
+    {
+        if (hasAlerted) return;
+
+        Collider[] nearbyEnemies = Physics.OverlapSphere(transform.position, alertRadius, LayerMask.GetMask("Enemy"));
+        foreach (Collider enemy in nearbyEnemies)
+        {
+            EnemyAI ai = enemy.GetComponent<EnemyAI>();
+            if (ai != null && ai != this) // Avoid notifying itself
+            {
+                ai.ChangeState(AIState.Chase);
+            }
+        }
+        hasAlerted = true; // Prevent re-alerting in the same event
     }
 }
