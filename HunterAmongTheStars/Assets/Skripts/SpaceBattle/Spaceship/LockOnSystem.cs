@@ -9,8 +9,9 @@ public class LockOnSystem : MonoBehaviour
     public Transform lockOnTarget;
     [SerializeField] Camera cam;
 
-    [Header("Lock-On Indicators")]
-    public GameObject lockOnIndicator; // Optional: indicator for lock-on targets
+    [Header("Lock-On Indicator")]
+    public GameObject lockOnIndicator; //  indicator for lock-on targets
+    private RectTransform lockOnIndicatorRect; // RectTransform for the 2D indicator
 
     private List<ShipWeapon> weapons;
 
@@ -18,6 +19,11 @@ public class LockOnSystem : MonoBehaviour
     {
         // Find all ShipWeapon components attached to the ship
         weapons = new List<ShipWeapon>(GetComponentsInChildren<ShipWeapon>());
+        if (lockOnIndicator != null)
+        {
+            lockOnIndicatorRect = lockOnIndicator.GetComponent<RectTransform>();
+            lockOnIndicator.SetActive(false);
+        }
     }
 
     void Update()
@@ -34,9 +40,29 @@ public class LockOnSystem : MonoBehaviour
         // Update lock-on indicator
         if (lockOnIndicator != null)
         {
-            lockOnIndicator.SetActive(lockOnTarget != null);
             if (lockOnTarget != null)
-                lockOnIndicator.transform.position = lockOnTarget.position;
+            {
+                lockOnIndicator.SetActive(true);
+
+                // Convert world position to screen position
+                Vector3 screenPosition = cam.WorldToScreenPoint(lockOnTarget.position);
+
+                // Check if the target is in front of the camera
+                if (screenPosition.z > 0)
+                {
+                    // Update indicator position
+                    lockOnIndicatorRect.position = screenPosition;
+                }
+                else
+                {
+                    // Hide indicator if the target is behind the camera
+                    lockOnIndicator.SetActive(false);
+                }
+            }
+            else
+            {
+                lockOnIndicator.SetActive(false);
+            }
         }
     }
 

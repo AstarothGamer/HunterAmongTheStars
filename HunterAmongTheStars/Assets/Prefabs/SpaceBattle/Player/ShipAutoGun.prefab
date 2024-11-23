@@ -214,7 +214,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8141220130538265536, guid: 74b8d1b95dc918e458a0220b807d48dc, type: 3}
   projectileSpawnpoint: {fileID: 4439074740380528020}
   anim: {fileID: 0}
-  projectileSpeed: 55
+  projectileSpeed: 65
   projectilesPerShot: 1
   projectileLifetime: 3
   projectileSpeedVariation: 0.4

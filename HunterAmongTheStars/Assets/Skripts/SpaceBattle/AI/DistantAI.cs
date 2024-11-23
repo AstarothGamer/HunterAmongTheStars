@@ -21,6 +21,8 @@ public class DistantAI : ShipAI
     public bool LightShot = true;
     public bool HeavyShot = false;
 
+    [Header("Visual Effects")]
+    [SerializeField] ParticleSystem hit;
     protected override void Initialize()
     {
         base.Initialize();
@@ -119,6 +121,8 @@ public class DistantAI : ShipAI
 
         currentHealth -= damage;
 
+        if(hit != null)
+        hit.Play();
         AudioManager.PlaySound(SoundType.Hit, 0.4f);
 
         if (currentHealth <= 0)

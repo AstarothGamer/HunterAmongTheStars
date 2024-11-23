@@ -143,8 +143,16 @@ public class EnemyAI : Damageable
     }
     protected Quaternion GetProjectileDirection(float currentAccuracy)
     {
-        float adjustedSpread = Random.Range(-currentAccuracy, currentAccuracy);
-        return Quaternion.Euler(projectileSpawnpoint.rotation.eulerAngles + Vector3.forward * adjustedSpread);
+        // Generate random offsets for pitch (x-axis) and yaw (y-axis)
+        float spreadX = Random.Range(-currentAccuracy, currentAccuracy); // Vertical spread
+        float spreadY = Random.Range(-currentAccuracy, currentAccuracy); // Horizontal spread
+
+        // Apply the spread to the spawnpoint's forward direction
+        return Quaternion.Euler(
+            projectileSpawnpoint.rotation.eulerAngles.x + spreadX,
+            projectileSpawnpoint.rotation.eulerAngles.y + spreadY,
+            projectileSpawnpoint.rotation.eulerAngles.z
+        );
     }
 
     void Retreat()
@@ -187,6 +195,7 @@ public class EnemyAI : Damageable
 
         Alert();
         currentHealth -= damage;
+        Debug.Log("Received " + damage + " damage");
 
         if (blood != null)
         blood.Play();
