@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using System.Collections;
 using UnityEngine;
 
-public class ShipMovement : Singleton<ShipMovement>
+public class ShipMovement : MonoBehaviour
 {
     public Transform ship;
     private Transform targetPlanet;
@@ -11,6 +11,49 @@ public class ShipMovement : Singleton<ShipMovement>
     public bool isMoving = false;
     public CinemachineCamera Cam;
     public float startDuration = 2.5f;
+
+    private static ShipMovement _instance;
+
+    #region Singleton
+    public static ShipMovement Instance
+    {
+        get
+        {
+            // Check if the instance is already created
+            if (_instance == null)
+            {
+                // Try to find an existing AudioManager in the scene
+                _instance = FindAnyObjectByType<ShipMovement>();
+
+                // If no AudioManager exists, create a new one
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("ShipMovement");
+                    _instance = singletonObject.AddComponent<ShipMovement>();
+                }
+
+                // Make the AudioManager persist across scenes (optional)
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        // If the instance is already set, destroy this duplicate object
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;  // Assign this object as the instance
+        }
+
+    }
+    #endregion
 
     void Start()
     {

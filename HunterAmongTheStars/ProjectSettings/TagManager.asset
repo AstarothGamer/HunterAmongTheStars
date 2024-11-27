@@ -18,8 +18,8 @@ TagManager:
   - Enemy
   - Player
   - Plasma
-  - 
-  - 
+  - EnemyProjectile
+  - Background
   - 
   - 
   - 

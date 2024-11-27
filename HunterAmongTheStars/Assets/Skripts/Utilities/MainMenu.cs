@@ -11,8 +11,8 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Restart(string gameName)
+    public void Restart()
     {
-        SceneLoader.Instance.LoadScene(gameName);
+        SceneLoader.Instance.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

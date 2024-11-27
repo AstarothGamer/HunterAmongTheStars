@@ -43,6 +43,7 @@ public class PlayerHP : MonoBehaviour
         }
         else
         {
+            if (DamageOverlayCG != null)
             DamageOverlayCG.gameObject.SetActive(false);
         }
 

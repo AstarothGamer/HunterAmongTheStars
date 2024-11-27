@@ -5,9 +5,8 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] Transform Gunpoint;
-    [SerializeField] Camera Cam;
+    [SerializeField] CinemachineCamera Cam;
     public Animator anim;
-    private CinemachineBasicMultiChannelPerlin noise;
     public int bulletsPerShot = 1;
     public float attackTime = 0.5f;
     public float range = 70f;
@@ -16,8 +15,6 @@ public class Gun : MonoBehaviour
 
     [Header("Aiming Settings")]
     public float normalFOV = 60f;
-    public float aimFOV = 40f;
-    public float aimTransitionSpeed = 10f; // Speed for the aiming transition
 
     [Header("Ammo Info")]
     public float reloadTime = .7f;
@@ -38,6 +35,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] GameObject shellPrefab;
     [SerializeField] GameObject Impact;
+    [SerializeField] CinemachineBasicMultiChannelPerlin noise;
 
     [Header("Debug")]
     //these are shown in the inspector, but cannot be modified while the game is not running
@@ -51,7 +49,10 @@ public class Gun : MonoBehaviour
         currentAmmo = maxAmmo;
         if (muzzleFlashLight != null )
         muzzleFlashLight.enabled = false;
-
+        if (noise == null)
+        noise = Cam.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        if (noise)
+        noise.FrequencyGain = 0f;
     }
 
     public virtual void Reload()
@@ -164,15 +165,27 @@ public class Gun : MonoBehaviour
     }
     private IEnumerator Flash()
     {
+        if (muzzleFlashLight)
         muzzleFlashLight.enabled = true;
+
+        Cam.Lens.FieldOfView = normalFOV + 3f;
+
+        if (noise)
+        noise.FrequencyGain = shakeAmplitude;  // Shake
 
         // Wait for the flash duration
         yield return new WaitForSeconds(flashDuration);
 
+        if (muzzleFlashLight)
         muzzleFlashLight.enabled = false;
+
+        Cam.Lens.FieldOfView = normalFOV;
 
         // Wait for the flash duration
         yield return new WaitForSeconds(shakeDuration);
+
+        if (noise)
+        noise.FrequencyGain = 0f;  // Shake
     }
     void EjectShell()
     {

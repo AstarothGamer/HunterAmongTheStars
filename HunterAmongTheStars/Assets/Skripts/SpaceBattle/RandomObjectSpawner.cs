@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroids : MonoBehaviour
+public class RandomObjectSpawner : MonoBehaviour
 {
-    public GameObject asteroidPrefab;   // The asteroid prefab to spawn
     public int numberOfAsteroids = 100; // Number of asteroids to spawn
     public Vector3 areaSize = new Vector3(100, 100, 100); // Area size for random placement
     public float minDistanceBetweenAsteroids = 5f; // Minimum distance between asteroids
     public float minSize = 1f;
     public float maxSize = 5f;
-    public List<GameObject> asteroids;
+    public List<GameObject> objects;
 
     private void Start()
     {
@@ -43,12 +42,13 @@ public class Asteroids : MonoBehaviour
                 continue;
             }
 
+            int R = Random.Range(0, objects.Count); 
             // Place the asteroid at the random position
-            GameObject asteroid = Instantiate(asteroidPrefab, position, Random.rotation);
+            GameObject obj = Instantiate(objects[R], position, Random.rotation);
             // Randomize size within the defined range
             float randomSize = Random.Range(minSize, maxSize);
             // Set the randomized size
-            asteroid.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+            obj.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
             asteroidPositions[i] = position;
         }
     }

@@ -1,4 +1,3 @@
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]

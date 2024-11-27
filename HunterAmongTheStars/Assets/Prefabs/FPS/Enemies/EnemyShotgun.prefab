@@ -154,7 +154,7 @@ MonoBehaviour:
   projectilesPerShot: 10
   projectileLifetime: 2
   projectileSpread: 5
-  damage: 10
+  damage: 5
   RifleSound: 0
   PistolSound: 0
   ShotgunSound: 1

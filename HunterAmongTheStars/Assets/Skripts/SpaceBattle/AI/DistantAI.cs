@@ -6,6 +6,7 @@ public class DistantAI : ShipAI
     public AIState currentState;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnpoint;
+    [SerializeField] Transform projectileSpawnpoint2;
 
     [Header("Shooting")]
     [SerializeField] int projectilesPerShot = 1;
@@ -89,6 +90,16 @@ public class DistantAI : ShipAI
             InitializeProjectile(proj);
         }
 
+        if (projectileSpawnpoint2 != null)
+        {
+            for (int i = 0; i < projectilesPerShot; i++)
+            {
+                var go = Instantiate(projectilePrefab, projectileSpawnpoint2.position, GetProjectileDirection(projectileSpread));
+                var proj = go.GetComponent<EnemyBullet>();
+                InitializeProjectile(proj);
+            }
+        }
+
     }
     protected virtual void InitializeProjectile(EnemyBullet projectile)
     {
@@ -127,6 +138,8 @@ public class DistantAI : ShipAI
 
         if (currentHealth <= 0)
         {
+            AudioManager.PlaySound(SoundType.Explosion, 0.3f);
+            AudioManager.PlaySoundAtPoint(SoundType.Explosion, gameObject.transform.position, 1);
             Die();
         }
     }

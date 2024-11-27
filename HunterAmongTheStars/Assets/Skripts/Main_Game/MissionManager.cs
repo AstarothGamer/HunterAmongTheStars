@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class MissionManager : Singleton<MissionManager>
+public class MissionManager : MonoBehaviour
 {
     private Transform currentPlanet;
     private Transform targetPlanet;
@@ -21,10 +21,51 @@ public class MissionManager : Singleton<MissionManager>
     [SerializeField] GameObject StartButton;
     [SerializeField] TextMeshProUGUI NameText;
     [SerializeField] TextMeshProUGUI DescriptionText;
+
+    private static MissionManager _instance;
+
+    #region Singleton
+    public static MissionManager Instance
+    {
+        get
+        {
+            // Check if the instance is already created
+            if (_instance == null)
+            {
+                // Try to find an existing AudioManager in the scene
+                _instance = FindAnyObjectByType<MissionManager>();
+
+                // If no AudioManager exists, create a new one
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("MissionManager");
+                    _instance = singletonObject.AddComponent<MissionManager>();
+                }
+
+                // Make the AudioManager persist across scenes (optional)
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
     void Awake()
     {
+        // If the instance is already set, destroy this duplicate object
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;  // Assign this object as the instance
+        }
+
         missionUI.SetActive(false);
     }
+    #endregion
+
     private void Update()
     {
         if (targetPlanet != null && targetPlanet != currentPlanet && Input.GetKeyDown(moveButton))
@@ -91,7 +132,6 @@ public class MissionManager : Singleton<MissionManager>
     }
     private IEnumerator Encounter()
     {
-        Debug.Log("RandomEvent");
         float randomTime = Random.Range(1f, 1.5f);
 
         yield return new WaitForSeconds(randomTime);
