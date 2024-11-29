@@ -25,6 +25,7 @@ public class RamAI : ShipAI
     [SerializeField] GameObject warning;
 
     private bool canAttack = true;
+    private KillAlll killAll;
 
     protected override void Initialize()
     {
@@ -37,6 +38,10 @@ public class RamAI : ShipAI
 
         if (warning != null)
         warning.SetActive(false);
+
+        killAll = KillAlll.Instance;
+        if (killAll != null)
+        killAll.enemies++;
     }
 
     public override void Update()
@@ -152,6 +157,8 @@ public class RamAI : ShipAI
         {
             AudioManager.PlaySound(SoundType.Explosion, 0.3f);
             AudioManager.PlaySoundAtPoint(SoundType.Explosion, gameObject.transform.position, 1);
+            if (killAll != null)
+            killAll.ImDead();
             Die();
         }
     }

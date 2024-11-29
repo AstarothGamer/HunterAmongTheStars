@@ -8,6 +8,8 @@ public class PlayerHP : MonoBehaviour
     public float maxHealth = 100;
     public bool isDead;
     public bool isVulnerable = true;
+    public bool regen = true; 
+    public float regenRate = 2f; 
 
     [Header("Health Bar")]
     public bool useHealthBar = true;
@@ -142,9 +144,19 @@ public class PlayerHP : MonoBehaviour
     {
         healtBarCG.alpha = 1;
         showBar = true;
-   
-        yield return new WaitForSeconds(healthBarDuration);
 
+        // Start health regeneration
+        if (regen)
+        {
+            while (currentHealth < maxHealth && regen)
+            {
+                currentHealth += regenRate * Time.deltaTime;
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+                yield return null;
+            }
+        }
+
+        yield return new WaitForSeconds(healthBarDuration);
         showBar = false;
     }
     private IEnumerator ShowDamageOverlay()
@@ -184,15 +196,13 @@ public class PlayerHP : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.None;
-        //DisablePlayerControls();
 
-        // Show death screen
-        if (DeathScreen != null)
-        {
-            DeathScreen.SetActive(true);
-        }
+        if (DeathScreen)
+        DeathScreen.SetActive(true);
 
         // Disable player object
         gameObject.SetActive(false);
+
+        AudioManager.PlaySound(SoundType.GameOver, 0.9f);
     }
 }

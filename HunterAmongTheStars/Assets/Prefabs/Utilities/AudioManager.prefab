@@ -321,7 +321,7 @@ MonoBehaviour:
   - name: Damage
     Sound: {fileID: 8300000, guid: b0d733507bbdfb54094a2520c83a0718, type: 3}
   - name: Death
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: 01ec77b1a94d667428ffb47698764246, type: 3}
   - name: Button
     Sound: {fileID: 8300000, guid: b39c73834953ec0498a14c9060b880f6, type: 3}
   - name: Button2
@@ -346,6 +346,8 @@ MonoBehaviour:
     Sound: {fileID: 8300000, guid: 2aa0baa2ac4327340bd694ba1a112bf7, type: 3}
   - name: Money
     Sound: {fileID: 8300000, guid: 07b02722e8160194aad7dee8e99e735d, type: 3}
+  - name: GameOver
+    Sound: {fileID: 8300000, guid: c17026d167955a1449f222c427ab44ed, type: 3}
   - name: CalmMusic
     Sound: {fileID: 0}
   - name: BattleMusic

@@ -47,9 +47,9 @@ public class MissionPoint : MonoBehaviour
         planetRenderer.material.color = originalColor;
         planetCam.Priority = 20;
 
-        MissionManager.Instance.DisplayMissionUI(this);
         MissionManager.Instance.SelectPlanet(transform);
         ShipMovement.Instance.SelectPlanet(transform);
+        MissionManager.Instance.DisplayMissionUI(this);
         AssignMission();
     }
     void AssignMission()

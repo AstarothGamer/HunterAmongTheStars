@@ -24,6 +24,8 @@ public class DistantAI : ShipAI
 
     [Header("Visual Effects")]
     [SerializeField] ParticleSystem hit;
+
+    private KillAlll killAll;
     protected override void Initialize()
     {
         base.Initialize();
@@ -32,6 +34,10 @@ public class DistantAI : ShipAI
 
         if (target == null)
         target = PlayerManager.Instance.player.transform;
+
+        killAll = KillAlll.Instance;
+        if (killAll != null)
+         killAll.enemies++;
     }
     public override void Update()
     {
@@ -140,6 +146,8 @@ public class DistantAI : ShipAI
         {
             AudioManager.PlaySound(SoundType.Explosion, 0.3f);
             AudioManager.PlaySoundAtPoint(SoundType.Explosion, gameObject.transform.position, 1);
+            if (killAll != null)
+            killAll.ImDead();
             Die();
         }
     }

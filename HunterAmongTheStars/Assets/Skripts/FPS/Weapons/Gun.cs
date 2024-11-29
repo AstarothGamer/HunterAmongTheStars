@@ -14,7 +14,6 @@ public class Gun : MonoBehaviour
     public float spread = 0f;
 
     [Header("Aiming Settings")]
-    public float normalFOV = 60f;
 
     [Header("Ammo Info")]
     public float reloadTime = .7f;
@@ -168,7 +167,8 @@ public class Gun : MonoBehaviour
         if (muzzleFlashLight)
         muzzleFlashLight.enabled = true;
 
-        Cam.Lens.FieldOfView = normalFOV + 3f;
+        float normalFOV = Cam.Lens.FieldOfView;
+        Cam.Lens.FieldOfView = Cam.Lens.FieldOfView + 3f;
 
         if (noise)
         noise.FrequencyGain = shakeAmplitude;  // Shake

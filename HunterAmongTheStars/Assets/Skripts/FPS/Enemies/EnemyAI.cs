@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -200,11 +198,12 @@ public class EnemyAI : Damageable
         if (blood != null)
         blood.Play();
 
-        AudioManager.PlaySoundAtPoint(SoundType.Damage, transform.position, 1f);
-        AudioManager.PlaySound(SoundType.Hit, 0.4f);
+        AudioManager.PlaySound(SoundType.Damage, 0.5f);
+        AudioManager.PlaySound(SoundType.Hit, 0.6f);
 
         if (currentHealth <= 0)
         {
+            AudioManager.PlaySoundAtPoint(SoundType.Death, transform.position, 1f);
             Die();
         }
         else if (currentHealth < 55)

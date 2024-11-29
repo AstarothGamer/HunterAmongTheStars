@@ -25,6 +25,7 @@ public enum SoundType
     Explosion,
     Boost,
     Money,
+    GameOver,
     CalmMusic,
     BattleMusic
 }

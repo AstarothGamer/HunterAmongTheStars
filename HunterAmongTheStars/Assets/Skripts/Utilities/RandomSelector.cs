@@ -3,16 +3,31 @@ using UnityEngine;
 
 public class RandomSelector : MonoBehaviour
 {
-    public List<GameObject> objects;
+    public List<OBJ> objects;
     public bool chooseRandomFromStart;
 
     private void Start()
     {
-        for (int i = 0; i < objects.Count; i++)
+        if (chooseRandomFromStart)
         {
-            objects[i].SetActive(false);
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i]._gameObject.SetActive(false);
+            }
+            int R = Random.Range(0, objects.Count);
+            objects[R]._gameObject.SetActive(true);
+
+            if (objects[R].skybox)
+            {
+                RenderSettings.skybox = objects[R].skybox;
+                DynamicGI.UpdateEnvironment();
+            }
         }
-        int R = Random.Range(0, objects.Count);
-        objects[R].SetActive(true);
     }
+}
+[System.Serializable]
+public struct OBJ
+{
+    public GameObject _gameObject;
+    public Material skybox;
 }
