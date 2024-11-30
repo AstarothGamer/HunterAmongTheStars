@@ -361,6 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 88282059}
   - component: {fileID: 88282058}
+  - component: {fileID: 88282060}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -396,6 +397,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88282060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88282057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e44437a41d5454789762a522d61d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blink: {fileID: 0}
+  duration: 1
+  enemies: 0
 --- !u!4 &141173941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 234cfaeeeddda7d4692d24a786246003, type: 3}

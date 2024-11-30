@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Unity.VisualScripting;
 
 public class MissionManager : MonoBehaviour
 {
@@ -11,9 +11,11 @@ public class MissionManager : MonoBehaviour
     public KeyCode moveButton = KeyCode.Space;
 
     [Header("Mini games")]
+    public List<GameObject> planets;
+    public List<MiniGame> miniGames;
     public List<MiniGame> encounters;
-    public MiniGame mission;
-    public MissionPoint missionPoint;
+    [HideInInspector] public MiniGame mission;
+    [HideInInspector] public MissionPoint missionPoint;
 
     [Header("UI")]
     public GameObject missionUI;
@@ -66,6 +68,33 @@ public class MissionManager : MonoBehaviour
     }
     #endregion
 
+    private void Start()
+    {
+        // Shuffle the miniGames
+        List<MiniGame> shuffledMiniGames = new List<MiniGame>(miniGames);
+        for (int i = 0; i < shuffledMiniGames.Count; i++)
+        {
+            int R = Random.Range(i, shuffledMiniGames.Count);
+            // Swap the current element with a random one
+            var temp = shuffledMiniGames[i];
+            shuffledMiniGames[i] = shuffledMiniGames[R];
+            shuffledMiniGames[R] = temp;
+        }
+
+        // Assign miniGames to planets
+        for (int i = 0; i < planets.Count; i++)
+        {
+            if (i < shuffledMiniGames.Count)
+            {
+                planets[i].GetComponent<MissionPoint>().miniGame = shuffledMiniGames[i];
+            }
+            else
+            {
+                Debug.LogWarning("Not enough miniGames to assign one to each planet.");
+                break;
+            }
+        }
+    }
     private void Update()
     {
         if (targetPlanet != null && targetPlanet != currentPlanet && Input.GetKeyDown(moveButton))
