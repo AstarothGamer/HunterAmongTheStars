@@ -6,6 +6,7 @@ public class DistantAI : ShipAI
     public AIState currentState;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnpoint;
+    [SerializeField] Transform projectileSpawnpoint2;
 
     [Header("Shooting")]
     [SerializeField] int projectilesPerShot = 1;
@@ -21,6 +22,10 @@ public class DistantAI : ShipAI
     public bool LightShot = true;
     public bool HeavyShot = false;
 
+    [Header("Visual Effects")]
+    [SerializeField] ParticleSystem hit;
+
+    private KillAlll killAll;
     protected override void Initialize()
     {
         base.Initialize();
@@ -29,6 +34,10 @@ public class DistantAI : ShipAI
 
         if (target == null)
         target = PlayerManager.Instance.player.transform;
+
+        killAll = KillAlll.Instance;
+        if (killAll != null)
+         killAll.enemies++;
     }
     public override void Update()
     {
@@ -87,6 +96,16 @@ public class DistantAI : ShipAI
             InitializeProjectile(proj);
         }
 
+        if (projectileSpawnpoint2 != null)
+        {
+            for (int i = 0; i < projectilesPerShot; i++)
+            {
+                var go = Instantiate(projectilePrefab, projectileSpawnpoint2.position, GetProjectileDirection(projectileSpread));
+                var proj = go.GetComponent<EnemyBullet>();
+                InitializeProjectile(proj);
+            }
+        }
+
     }
     protected virtual void InitializeProjectile(EnemyBullet projectile)
     {
@@ -119,10 +138,16 @@ public class DistantAI : ShipAI
 
         currentHealth -= damage;
 
+        if(hit != null)
+        hit.Play();
         AudioManager.PlaySound(SoundType.Hit, 0.4f);
 
         if (currentHealth <= 0)
         {
+            AudioManager.PlaySound(SoundType.Explosion, 0.3f);
+            AudioManager.PlaySoundAtPoint(SoundType.Explosion, gameObject.transform.position, 1);
+            if (killAll != null)
+            killAll.ImDead();
             Die();
         }
     }

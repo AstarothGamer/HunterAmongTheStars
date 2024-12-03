@@ -5,10 +5,14 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneLoader.Instance.LoadScene("MainGame");
     }
     public void ExitGame()
     {
         Application.Quit();
+    }
+    public void Restart()
+    {
+        SceneLoader.Instance.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
