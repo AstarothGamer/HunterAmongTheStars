@@ -1,20 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text timerText;
     [SerializeField] private GameObject lostGamePanel;
     [SerializeField] private GameObject wonGamePanel;
     [SerializeField] private GameObject cellPrefab;
-    private bool isGameOver = false;
+    public bool isGameOver = false;
     public int gridSize = 10;
     public float spacing = 150f; 
     public float mineChance = 0.15f; 
+    public float timer;
 
     private Cell[,] grid;
 
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.BackgroundMusic, 0.2f);
         GenerateGrid();
     }
 
@@ -78,6 +83,7 @@ public class GameManager : MonoBehaviour
 
         if (cell.isMine)
         {
+            AudioManager.PlaySound(SoundType.Explosion, 0.3f);
             EndGame(false); // lose
         }
         else if (CheckWinCondition())
@@ -100,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool isWin)
     {
+        AudioManager.StopMusicGradually(1);
         isGameOver = true;
         StartCoroutine(HandleEndGame(isWin));
     }
@@ -110,6 +117,7 @@ public class GameManager : MonoBehaviour
 
         if (isWin)
         {
+            AudioManager.PlaySound(SoundType.WinMusic, 0.7f);
             yield return new WaitForSeconds(2f);
             RevealAllMines();
             yield return new WaitForSeconds(2f);
@@ -133,6 +141,7 @@ public class GameManager : MonoBehaviour
                 if (grid[x, z].isMine)
                 {
                     grid[x, z].Reveal();
+                    if(!CheckWinCondition()) AudioManager.PlaySound(SoundType.Explosion, 0.3f);
                 }
             }
         }
@@ -155,6 +164,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        timer += Time.deltaTime;
+        timerText.text = "Timer: " + timer.ToString("0");
+
         if (isGameOver) return; // Block clicking if the game ended
 
         // Right click (open cell)

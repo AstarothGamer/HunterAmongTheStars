@@ -28,7 +28,9 @@ public enum SoundType
     Money,
     GameOver,
     CalmMusic,
-    BattleMusic
+    BattleMusic,
+    WinMusic,
+    BackgroundMusic
 }
 public class AudioManager : MonoBehaviour
 {
