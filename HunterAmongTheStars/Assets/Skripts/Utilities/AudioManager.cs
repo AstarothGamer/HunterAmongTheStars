@@ -15,6 +15,7 @@ public enum SoundType
     Death,
     Button,
     Button2,
+    Button3,
     Switch,
     Item,
     FootStep,

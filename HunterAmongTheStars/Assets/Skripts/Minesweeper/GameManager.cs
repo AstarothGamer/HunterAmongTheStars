@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject cellPrefab;
     private bool isGameOver = false;
     public int gridSize = 10;
-    public float spacing = 150f; // Расстояние между клетками
-    public float mineChance = 0.15f; // Вероятность появления мины
+    public float spacing = 150f; 
+    public float mineChance = 0.15f; 
 
     private Cell[,] grid;
 
@@ -30,13 +30,12 @@ public class GameManager : MonoBehaviour
                 GameObject cellObj = Instantiate(cellPrefab, position, Quaternion.identity);
                 Cell cell = cellObj.GetComponent<Cell>();
 
-                // Определяем, является ли клетка миной
+                // Mark a cell as a mine
                 cell.isMine = Random.value < mineChance;
                 grid[x, z] = cell;
             }
         }
 
-        // Рассчитываем количество соседних мин для каждой клетки
         CalculateAdjacentMines();
     }
 
@@ -79,16 +78,16 @@ public class GameManager : MonoBehaviour
 
         if (cell.isMine)
         {
-            EndGame(false); // Проигрыш
+            EndGame(false); // lose
         }
         else if (CheckWinCondition())
         {
-            EndGame(true); // Победа
+            EndGame(true); // win
         }
 
         if (cell.adjacentMines == 0 && !cell.isMine)
         {
-            // Автоматически открываем соседние клетки
+            // automatically open neihbour cells 
             for (int dx = -1; dx <= 1; dx++)
             {
                 for (int dz = -1; dz <= 1; dz++)
@@ -104,6 +103,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         StartCoroutine(HandleEndGame(isWin));
     }
+
     private IEnumerator HandleEndGame(bool isWin)
     {
         isGameOver = true;
@@ -155,9 +155,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver) return; // Блокируем действия, если игра завершена
+        if (isGameOver) return; // Block clicking if the game ended
 
-        // Обработка левого клика (открытие клетки)
+        // Right click (open cell)
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -181,9 +181,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Обработка правого клика (установка/снятие флажка)
+        // Right click (mark/cancel as flag)
         if (Input.GetMouseButtonDown(1))
         {
+            AudioManager.PlaySound(SoundType.Button, 0.7f);
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {

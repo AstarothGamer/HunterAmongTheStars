@@ -32,7 +32,10 @@ public class Cell : MonoBehaviour
         else
         {
             cellRenderer.material.color = Color.white; // open the cell
+            
+            AudioManager.PlaySound(SoundType.Button3, 0.7f);
 
+            
             if (adjacentMines >= 0 && adjacentMines < textures.Length)
             {
                 cellRenderer.material.mainTexture = textures[adjacentMines];
