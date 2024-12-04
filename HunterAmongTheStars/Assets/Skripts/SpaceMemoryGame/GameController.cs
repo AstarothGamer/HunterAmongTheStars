@@ -201,4 +201,5 @@ public class GameController : MonoBehaviour
             list[randomIndex] = temp;
         }
     }
+    // just to check the problem
 }
