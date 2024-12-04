@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Divider
   - Plasma
+  - PuzzleButton
   layers:
   - Default
   - TransparentFX

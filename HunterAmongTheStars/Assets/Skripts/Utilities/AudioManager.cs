@@ -15,6 +15,7 @@ public enum SoundType
     Death,
     Button,
     Button2,
+    Button3,
     Switch,
     Item,
     FootStep,
@@ -27,7 +28,9 @@ public enum SoundType
     Money,
     GameOver,
     CalmMusic,
-    BattleMusic
+    BattleMusic,
+    WinMusic,
+    BackgroundMusic
 }
 public class AudioManager : MonoBehaviour
 {
