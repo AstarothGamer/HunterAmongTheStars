@@ -6,11 +6,11 @@ public class DamageBox : MonoBehaviour
     [SerializeField] float damage;
     private void OnTriggerEnter(Collider collision)
     {
-        var targetable = collision.GetComponent<Damageable>();
+        var targetable = collision.GetComponentInParent<PlayerHP>();
 
         if (targetable == null)
         return;
 
-        targetable.Damage(damage);
+        targetable.DamagePlayer(damage);
     }
 }

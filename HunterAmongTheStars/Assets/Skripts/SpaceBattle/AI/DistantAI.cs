@@ -33,7 +33,13 @@ public class DistantAI : ShipAI
         currentState = AIState.Chase;
 
         if (target == null)
-        target = PlayerManager.Instance.player.transform;
+        {
+            target = PlayerManager.Instance.player.transform;
+            if (target == null)
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+        }
 
         killAll = KillAlll.Instance;
         if (killAll != null)

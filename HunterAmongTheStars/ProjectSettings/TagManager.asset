@@ -8,11 +8,12 @@ TagManager:
   - Obstacle
   - Divider
   - Plasma
+  - PuzzleButton
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post Processing
   - Water
   - UI
   - Enemy

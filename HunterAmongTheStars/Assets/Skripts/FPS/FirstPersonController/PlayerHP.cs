@@ -115,7 +115,6 @@ public class PlayerHP : MonoBehaviour
             DamageOverlayCG.alpha -= 3 * Time.deltaTime;
         }
     }
-
     // Damage the player and trigger the health bar visability
     public virtual void DamagePlayer(float damage)
     {

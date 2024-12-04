@@ -18,6 +18,8 @@ public class EnemyAI : Damageable
 
     private bool CanShoot;
     private bool hasAlerted = false;
+    public bool target = false;
+    private KillAlll killAll;
 
 
     [Header("Weapon")]
@@ -45,6 +47,16 @@ public class EnemyAI : Damageable
     {
         agent = GetComponent<NavMeshAgent>();
         player = PlayerManager.Instance.player.transform;
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        if (target)
+        {
+            killAll = KillAlll.Instance;
+            if (killAll != null)
+                killAll.enemies++;
+        }
         currentState = AIState.Patrol;
         CanShoot = true;
     }
@@ -204,6 +216,11 @@ public class EnemyAI : Damageable
         if (currentHealth <= 0)
         {
             AudioManager.PlaySoundAtPoint(SoundType.Death, transform.position, 1f);
+            if (target)
+            {
+                if (killAll != null)
+                killAll.ImDead();
+            }
             Die();
         }
         else if (currentHealth < 55)
