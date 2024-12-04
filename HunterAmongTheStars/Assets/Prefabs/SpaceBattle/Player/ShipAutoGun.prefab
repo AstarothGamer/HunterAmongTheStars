@@ -1022,7 +1022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7809365649544535073, guid: d412e4f8bf60ab24caa99fa6117e23fb, type: 3}
       propertyPath: startDelay.scalar
-      value: 6
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 7809365649544535073, guid: d412e4f8bf60ab24caa99fa6117e23fb, type: 3}
       propertyPath: ClampVelocityModule.enabled

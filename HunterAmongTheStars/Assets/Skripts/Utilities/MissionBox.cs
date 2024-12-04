@@ -1,22 +1,23 @@
 using System.Collections;
 using UnityEngine;
 
-public class FinalEnemy : EnemyAI
+public class MissionBox : MonoBehaviour
 {
     [SerializeField] GameObject blink;
     [SerializeField] float duration = 1f;
-    public override void Die()
+    private void OnTriggerEnter(Collider collision)
     {
-        isDead = true;
-        if (Remains != null)
-        Instantiate(Remains, gameObject.transform.position, Quaternion.identity);
-        StartCoroutine(Victory());
+        if (collision.CompareTag("Player"))
+        {
+            StartCoroutine(Victory());
+        }
     }
+
     private IEnumerator Victory()
     {
         Time.timeScale = 0.4f;
         if (blink)
-        blink.SetActive(true);
+            blink.SetActive(true);
 
         yield return new WaitForSeconds(duration);
 

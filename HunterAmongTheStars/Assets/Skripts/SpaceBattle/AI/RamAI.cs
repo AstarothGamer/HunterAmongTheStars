@@ -34,7 +34,13 @@ public class RamAI : ShipAI
         damageBox.SetActive(false);
 
         if (target == null)
-        target = PlayerManager.Instance.player.transform;
+        {
+            target = PlayerManager.Instance.player.transform;
+            if (target == null)
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+        }
 
         if (warning != null)
         warning.SetActive(false);
