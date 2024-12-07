@@ -3602,6 +3602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f6b167a96dd434eb3c830e5294a0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 0b7f92604c0f6461dac0a6b4da60d6c8, type: 2}
   ship: {fileID: 1362423665}
   speed: 5
   rotationSpeed: 4

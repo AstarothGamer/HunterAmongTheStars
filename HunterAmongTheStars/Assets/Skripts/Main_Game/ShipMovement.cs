@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipMovement : MonoBehaviour
 {
+    [SerializeField] private GameDataSO gameData;
     public Transform ship;
     private Transform targetPlanet;
     public float speed = 5f;
@@ -52,6 +53,7 @@ public class ShipMovement : MonoBehaviour
             _instance = this;  // Assign this object as the instance
         }
 
+        ship.position = gameData.playerPosition;
     }
     #endregion
 
@@ -61,7 +63,7 @@ public class ShipMovement : MonoBehaviour
     }
     void Update()
     {
-         MoveShipToPlanet();
+        MoveShipToPlanet();
     }
     private IEnumerator Prepare()
     {
@@ -113,6 +115,11 @@ public class ShipMovement : MonoBehaviour
     }
     void Arrive()
     {
+        if(gameData != null)
+        {
+            gameData.playerPosition = ship.position;
+        }
+
         MissionManager.Instance.ArriveAtPlanet();
         isMoving = false;
         Cam.Priority = 1;
