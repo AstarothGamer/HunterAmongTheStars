@@ -46,6 +46,7 @@ public class Beer : MonoBehaviour
     }
     void DrinkBeer()
     {
+        AudioManager.PlaySound(SoundType.Item, 0.7f);
         drunkEffect.TriggerDizzyness();
         filled = false;
         beerText.text = "10 credits to fill the beer";
@@ -58,6 +59,7 @@ public class Beer : MonoBehaviour
     }
     void FillBeer()
     {
+        AudioManager.PlaySound(SoundType.Money, 0.7f);
         // Spend money, change model
         filled = true;
         beerText.text = "drink the beer";

@@ -23,7 +23,7 @@ public class StartingWeapon : MonoBehaviour
         WeaponMenu.SetActive(false);
         pistol.SetActive(true);
         shotgun.SetActive(false);
-        //rifle.SetActive(false);
+        rifle.SetActive(false);
         Time.timeScale = 1f;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -33,7 +33,7 @@ public class StartingWeapon : MonoBehaviour
         WeaponMenu.SetActive(false);
         pistol.SetActive(false);
         shotgun.SetActive(true);
-        //rifle.SetActive(false);
+        rifle.SetActive(false);
         Time.timeScale = 1f;
 
         Cursor.lockState = CursorLockMode.Locked;

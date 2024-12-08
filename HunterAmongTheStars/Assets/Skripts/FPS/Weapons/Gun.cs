@@ -12,12 +12,14 @@ public class Gun : MonoBehaviour
     public float range = 70f;
     public float damage = 5f;
     public float spread = 0f;
+    public bool autoFire = false;
 
     [Header("Aiming Settings")]
 
     [Header("Ammo Info")]
     public float reloadTime = .7f;
     public int maxAmmo = 15;
+    public bool infiniteAmmo = false;
 
     [Header("Sound Effects")]
     public bool RifleSound = true;
@@ -84,29 +86,38 @@ public class Gun : MonoBehaviour
         {
             Reload();
         }
-        /*
-        if (Input.GetMouseButton(1) && !isReloading)
+
+        if (autoFire)
         {
-            Aim();
+            if (Input.GetButton("Fire1") && !isReloading)
+            {
+                if (currentAmmo <= 0)
+                {
+                    Reload();
+                    return;
+                }
+
+                if (nextShotMinTime > Time.time)
+                    return;
+
+                Attack();
+            }
         }
         else
         {
-            StopAiming();
-        }
-        */
-
-        if (Input.GetButtonDown("Fire1") && !isReloading)
-        {
-            if (currentAmmo <= 0)
+            if (Input.GetButtonDown("Fire1") && !isReloading)
             {
-                Reload();
-                return;
+                if (currentAmmo <= 0)
+                {
+                    Reload();
+                    return;
+                }
+
+                if (nextShotMinTime > Time.time)
+                    return;
+
+                Attack();
             }
-
-            if (nextShotMinTime > Time.time)
-                return;
-
-            Attack();
         }
 
     }
@@ -157,6 +168,8 @@ public class Gun : MonoBehaviour
             //CamShake.Instance.Shake(shakeDuration, shakeAmplitude);
 
         nextShotMinTime = Time.time + attackTime;
+
+        if(!infiniteAmmo)
         currentAmmo--;
 
         if (shellEjectionPoint != null && shellPrefab != null)

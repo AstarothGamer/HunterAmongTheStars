@@ -7,6 +7,13 @@ public class MainMenu : MonoBehaviour
     private bool isPaused = false;
     public bool canOpenPauseMenu = false;
     public bool lockCursor = false;
+    public bool playMusic = false;
+
+    private void Start()
+    {
+        if (playMusic)
+        AudioManager.PlayMusic(SoundType.CalmMusic, 0.7f);
+    }
     void Update()
     {
         if (canOpenPauseMenu)
@@ -22,6 +29,9 @@ public class MainMenu : MonoBehaviour
     }
     public void StartGame()
     {
+        if (playMusic)
+        AudioManager.StopMusicGradually(0.8f);
+
         SceneLoader.Instance.LoadScene("MainGame");
         Time.timeScale = 1f;
         isPaused = false;

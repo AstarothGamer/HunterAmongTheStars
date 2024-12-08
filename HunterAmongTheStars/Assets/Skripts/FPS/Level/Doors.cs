@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class Doors : MonoBehaviour
+public class Doors : MonoBehaviour // I was to lasy to make a good cript
 {
-    public bool playerInRange;
-    public bool CanInteract = false;
-    public bool wave;
-    public float Range;
-    public GameObject UI;
-    public Animator anim;
-    public GameObject nextRoomWave;
+    bool CanInteract = false;
+    [SerializeField] GameObject UI;
+    [SerializeField] Animator anim;
 
-    // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -34,10 +29,6 @@ public class Doors : MonoBehaviour
             {
                 anim.SetBool("Open", true);
                 UI.SetActive(false);
-                if (wave)
-                {
-                    nextRoomWave.SetActive(true);
-                }
                 Destroy(gameObject);
             }
         }

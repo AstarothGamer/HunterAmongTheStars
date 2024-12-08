@@ -6,6 +6,11 @@ public class KillAlll : Singleton<KillAlll>
     [SerializeField] float duration = 1f;
 
     [HideInInspector] public int enemies = 0;
+
+    private void Start()
+    {
+        enemies = 0;
+    }
     public void ImDead()
     {
         enemies--;
