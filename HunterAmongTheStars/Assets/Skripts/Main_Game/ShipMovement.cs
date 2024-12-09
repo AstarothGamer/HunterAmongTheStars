@@ -59,6 +59,7 @@ public class ShipMovement : MonoBehaviour
 
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.SpaceMusic, 0.7f);
         Cam.Priority = 1;
     }
     void Update()
@@ -72,6 +73,7 @@ public class ShipMovement : MonoBehaviour
         if (targetPlanet != null)
         isMoving = true;
 
+        AudioManager.PlayLoopSound(SoundType.Boost, 0.4f);
         MissionManager.Instance.RandomEvent();
     }
     public void StartMovingToPlanet(Transform target)
@@ -120,6 +122,7 @@ public class ShipMovement : MonoBehaviour
             gameData.playerPosition = ship.position;
         }
 
+        AudioManager.StopLoopSoundGradually(0.5f);
         MissionManager.Instance.ArriveAtPlanet();
         isMoving = false;
         Cam.Priority = 1;

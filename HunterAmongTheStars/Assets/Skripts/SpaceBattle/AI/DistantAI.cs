@@ -26,15 +26,15 @@ public class DistantAI : ShipAI
     [SerializeField] ParticleSystem hit;
 
     private KillAlll killAll;
-    protected override void Initialize()
+    void Start()
     {
-        base.Initialize();
-
         currentState = AIState.Chase;
 
         if (target == null)
         {
+            if (PlayerManager.Instance)
             target = PlayerManager.Instance.player.transform;
+
             if (target == null)
             {
                 target = GameObject.FindGameObjectWithTag("Player").transform;

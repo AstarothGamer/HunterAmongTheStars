@@ -27,7 +27,7 @@ public class RamAI : ShipAI
     private bool canAttack = true;
     private KillAlll killAll;
 
-    protected override void Initialize()
+    void Start()
     {
         base.Initialize();
         currentState = AIState.Chase;
@@ -35,7 +35,9 @@ public class RamAI : ShipAI
 
         if (target == null)
         {
+            if (PlayerManager.Instance)
             target = PlayerManager.Instance.player.transform;
+
             if (target == null)
             {
                 target = GameObject.FindGameObjectWithTag("Player").transform;

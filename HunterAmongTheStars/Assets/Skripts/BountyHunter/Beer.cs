@@ -5,20 +5,21 @@ using UnityEngine.Rendering;
 
 public class Beer : MonoBehaviour
 {
-    private Renderer mugRenderer;
+    [SerializeField] Renderer mugRenderer;
     private DrunkEffect drunkEffect;
     public Color highlightColor = Color.yellow;
     private Color originalColor;
     private bool filled;
 
     [SerializeField] private GameObject beerUI;
+    [SerializeField] private GameObject juice;
+    [SerializeField] private GameObject foam;
     [SerializeField] private TextMeshProUGUI beerText;
     [SerializeField] private float duration = 15f;
     [SerializeField] private Volume volume;
 
     void Start()
     {
-        mugRenderer = GetComponent<Renderer>();
         originalColor = mugRenderer.material.color; // Store the original color
         beerText.text = "drink the beer";
         beerUI.SetActive(false);
@@ -47,6 +48,8 @@ public class Beer : MonoBehaviour
     void DrinkBeer()
     {
         AudioManager.PlaySound(SoundType.Item, 0.7f);
+        juice.SetActive(false);
+        foam.SetActive(false);
         drunkEffect.TriggerDizzyness();
         filled = false;
         beerText.text = "10 credits to fill the beer";
@@ -60,6 +63,8 @@ public class Beer : MonoBehaviour
     void FillBeer()
     {
         AudioManager.PlaySound(SoundType.Money, 0.7f);
+        juice.SetActive(true);
+        foam.SetActive(true);
         // Spend money, change model
         filled = true;
         beerText.text = "drink the beer";

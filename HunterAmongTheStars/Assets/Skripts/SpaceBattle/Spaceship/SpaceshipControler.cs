@@ -38,6 +38,7 @@ public class SpaceshipControler : MonoBehaviour
 
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.SpaceMusic, 0.7f);
         Center.x = Screen.width * 0.5f;
         Center.y = Screen.height * 0.5f;
 

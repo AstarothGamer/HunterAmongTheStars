@@ -28,7 +28,7 @@ public enum SoundType
     Money,
     GameOver,
     CalmMusic,
-    BattleMusic,
+    SpaceMusic,
     WinMusic,
     BackgroundMusic
 }
@@ -156,10 +156,10 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = Instance.soundList[(int)sound].Sound;
         if (clip != null)
         {
-            Instance.MusicAudioSource.clip = clip; // Assign the clip to the audio source
-            Instance.MusicAudioSource.volume = volume; // Set the volume
-            Instance.MusicAudioSource.loop = true; // Enable looping
-            Instance.MusicAudioSource.Play(); // Play the clip
+            Instance.LoopAudioSource.clip = clip; // Assign the clip to the audio source
+            Instance.LoopAudioSource.volume = volume; // Set the volume
+            Instance.LoopAudioSource.loop = true; // Enable looping
+            Instance.LoopAudioSource.Play(); // Play the clip
         }
         else
         {
@@ -172,7 +172,7 @@ public class AudioManager : MonoBehaviour
     }
     public static IEnumerator FadeOutLoopSound(float duration)
     {
-        AudioSource loopAudioSource = Instance.MusicAudioSource;
+        AudioSource loopAudioSource = Instance.LoopAudioSource;
         float startVolume = loopAudioSource.volume;
 
         while (loopAudioSource.volume > 0)

@@ -35,10 +35,6 @@ public class Damageable : MonoBehaviour
         {
             Die();
         }
-        else
-        {
-            //play SFX
-        }
     }
 
     public void Heal(float amount)
@@ -59,6 +55,6 @@ public class Damageable : MonoBehaviour
         isDead = true;
         if (Remains != null)
         Instantiate(Remains, gameObject.transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

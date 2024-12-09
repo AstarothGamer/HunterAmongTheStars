@@ -141,6 +141,7 @@ public class MissionManager : MonoBehaviour
     {
         if (mission != null)
         {
+            AudioManager.StopMusicGradually(0.8f);
             SceneLoader.Instance.LoadScene(mission.Scene);
             missionUI.SetActive(false);
         }

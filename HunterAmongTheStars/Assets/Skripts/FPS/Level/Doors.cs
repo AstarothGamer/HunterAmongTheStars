@@ -25,7 +25,7 @@ public class Doors : MonoBehaviour // I was to lasy to make a good cript
 
         if (CanInteract)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 anim.SetBool("Open", true);
                 UI.SetActive(false);
