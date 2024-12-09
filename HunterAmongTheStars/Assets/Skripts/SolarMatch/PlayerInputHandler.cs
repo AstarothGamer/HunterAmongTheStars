@@ -21,10 +21,14 @@ public class PlayerInputHandler : MonoBehaviour
                         bool isCorrect = spawner.CheckPlanet(i);
                         if (isCorrect)
                         {
+                            AudioManager.PlaySound(SoundType.CorrectAnswer, 0.7f);
+
                             Debug.Log("Correct!");
                         }
                         else
                         {
+                            AudioManager.PlaySound(SoundType.WrongAnswer, 0.7f);
+
                             Debug.Log("Wrong!");
                         }
 
