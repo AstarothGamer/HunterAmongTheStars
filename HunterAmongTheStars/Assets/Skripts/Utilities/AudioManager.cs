@@ -30,7 +30,9 @@ public enum SoundType
     CalmMusic,
     SpaceMusic,
     WinMusic,
-    BackgroundMusic
+    BackgroundMusic,
+    WrongAnswer,
+    CorrectAnswer
 }
 public class AudioManager : MonoBehaviour
 {

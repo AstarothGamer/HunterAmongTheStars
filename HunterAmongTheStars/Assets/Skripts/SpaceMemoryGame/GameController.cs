@@ -96,11 +96,13 @@ public class GameController : MonoBehaviour
 
             if(firstGuessPuzzle == secondGuessPuzzle)
             {
+                AudioManager.PlaySound(SoundType.CorrectAnswer, 0.7f);
                 Debug.Log("the puzzles match");
             }
 
             else
             {
+                AudioManager.PlaySound(SoundType.WrongAnswer, 0.7f);
                 Debug.Log("The puzzles do not match");
             }
         }
@@ -175,7 +177,7 @@ public class GameController : MonoBehaviour
             Destroy3DObject(secondGuessIndex);
         }
 
-        yield return new WaitForSeconds(.5f);
+        // yield return new WaitForSeconds(.5f);
 
         firstGuess = secondGuess = false;
     }
