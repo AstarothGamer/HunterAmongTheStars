@@ -21,6 +21,8 @@ public class RandomPlanetSpawner : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.PlayMusic(SoundType.BackgroundMusic, 0.2f);
+
         StartCoroutine(SpawnPlanets());
     }
 

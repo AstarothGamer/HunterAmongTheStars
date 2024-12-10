@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.BackgroundMusic, 0.2f);
+
         GetButtons();
         AddListeners();
         AddGamePuzzles();
