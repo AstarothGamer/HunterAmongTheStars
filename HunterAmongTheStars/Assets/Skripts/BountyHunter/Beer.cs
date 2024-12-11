@@ -14,15 +14,18 @@ public class Beer : MonoBehaviour
     [SerializeField] private GameObject beerUI;
     [SerializeField] private GameObject juice;
     [SerializeField] private GameObject foam;
-    [SerializeField] private TextMeshProUGUI beerText;
+    [SerializeField] private GameObject Text;
     [SerializeField] private float duration = 15f;
     [SerializeField] private Volume volume;
+    private TextMeshProUGUI beerText;
 
     void Start()
     {
         originalColor = mugRenderer.material.color; // Store the original color
-        beerText.text = "drink the beer";
+        beerText = Text.GetComponent<TextMeshProUGUI>();
+        Text.SetActive(false);
         beerUI.SetActive(false);
+        beerText.text = "drink the beer";
         filled = true;
         drunkEffect = volume.GetComponent<DrunkEffect>();
     }
@@ -31,6 +34,7 @@ public class Beer : MonoBehaviour
         // Change the color of the mag
         mugRenderer.material.color = highlightColor;
         beerUI.SetActive(true);
+        Text.SetActive(true);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -44,6 +48,7 @@ public class Beer : MonoBehaviour
     {
         mugRenderer.material.color = originalColor;
         beerUI.SetActive(false);
+        Text.SetActive(false);
     }
     void DrinkBeer()
     {

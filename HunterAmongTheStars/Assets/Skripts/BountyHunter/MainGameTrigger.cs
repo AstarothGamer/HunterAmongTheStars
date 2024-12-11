@@ -8,12 +8,10 @@ public class MainGameTrigger : MonoBehaviour
 
     [SerializeField] private Renderer render;
     [SerializeField] private GameObject HintUI;
-    [SerializeField] private TextMeshProUGUI text;
 
     void Start()
     {
         originalColor = render.material.color; // Store the original color
-        text.text = "drink the beer";
         HintUI.SetActive(false);
     }
     void OnMouseOver()

@@ -22,7 +22,7 @@ public class RamAI : ShipAI
 
     [Header("Visual Effects")]
     [SerializeField] ParticleSystem hit;
-    [SerializeField] GameObject warning;
+    [SerializeField] ParticleSystem warning;
 
     private bool canAttack = true;
     private KillAlll killAll;
@@ -43,9 +43,6 @@ public class RamAI : ShipAI
                 target = GameObject.FindGameObjectWithTag("Player").transform;
             }
         }
-
-        if (warning != null)
-        warning.SetActive(false);
 
         killAll = KillAlll.Instance;
         if (killAll != null)
@@ -97,14 +94,11 @@ public class RamAI : ShipAI
 
         // Activate warning
         if (warning != null)
-            warning.SetActive(true);
+            warning.Play();
 
         // Wait for attack delay
         yield return new WaitForSeconds(attackDelay);
 
-        // Deactivate warning
-        if (warning != null)
-            warning.SetActive(false);
 
         float elapsedTime = 0f;
 

@@ -774,7 +774,7 @@ MonoBehaviour:
   beerUI: {fileID: 1962699769}
   juice: {fileID: 550730898}
   foam: {fileID: 703650317}
-  beerText: {fileID: 2026963992}
+  Text: {fileID: 2026963991}
   duration: 25
   volume: {fileID: 1471121189}
 --- !u!4 &107944897 stripped
@@ -5141,7 +5141,6 @@ MonoBehaviour:
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   render: {fileID: 1153722663}
   HintUI: {fileID: 1962699769}
-  text: {fileID: 2026963992}
 --- !u!4 &852391959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 499240, guid: ef77650fcc7dfd64a8d614922d90c382, type: 3}
@@ -6381,6 +6380,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 357884695}
+  - {fileID: 2026963994}
   - {fileID: 1962699770}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12403,7 +12403,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2026963994}
   - {fileID: 1534670595}
   m_Father: {fileID: 1028013335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12671,12 +12670,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026963991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1962699770}
+  m_Father: {fileID: 1028013335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

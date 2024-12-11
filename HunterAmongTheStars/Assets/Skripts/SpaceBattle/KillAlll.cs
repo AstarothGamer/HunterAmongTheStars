@@ -68,7 +68,7 @@ public class KillAlll : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
-        SceneLoader.Instance.LoadScene("MainGame");
+        SceneLoader.Instance.LoadScene("Bar");
         AudioManager.StopMusicGradually(0.8f);
 
         yield return new WaitForSeconds(0.9f);

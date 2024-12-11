@@ -20,6 +20,7 @@ public class StartingWeapon : MonoBehaviour
     }
     public void Pistol()
     {
+        AudioManager.PlayMusic(SoundType.ShooterMusic, 0.8f);
         WeaponMenu.SetActive(false);
         pistol.SetActive(true);
         shotgun.SetActive(false);
@@ -30,6 +31,7 @@ public class StartingWeapon : MonoBehaviour
     }
     public void Shotgun()
     {
+        AudioManager.PlayMusic(SoundType.ShooterMusic, 0.8f);
         WeaponMenu.SetActive(false);
         pistol.SetActive(false);
         shotgun.SetActive(true);
@@ -40,6 +42,7 @@ public class StartingWeapon : MonoBehaviour
     }
     public void Rifle()
     {
+        AudioManager.PlayMusic(SoundType.ShooterMusic, 0.8f);
         WeaponMenu.SetActive(false);
         pistol.SetActive(false);
         shotgun.SetActive(false);

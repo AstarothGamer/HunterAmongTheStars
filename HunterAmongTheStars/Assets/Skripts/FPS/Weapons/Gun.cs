@@ -139,8 +139,13 @@ public class Gun : MonoBehaviour
 
             // Calculate the direction considering spread
             Vector3 spreadDirection = Cam.transform.forward + new Vector3(x, y, z);
+
             RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, spreadDirection, out hit, range))
+
+            // Invert the LayerMask to ignore specified layers
+            int layerMask = ~9;
+
+            if (Physics.Raycast(Cam.transform.position, spreadDirection, out hit, range, layerMask))
             {
                 Debug.Log(hit.transform.name);
 

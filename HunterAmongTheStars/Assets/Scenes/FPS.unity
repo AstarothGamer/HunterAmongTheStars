@@ -2668,9 +2668,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 491576724}
+  - {fileID: 1540510794}
   - {fileID: 665625746}
   - {fileID: 1267875161}
-  - {fileID: 1540510794}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6182,15 +6182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13097186, g: 0.15031669, b: 0.24528301, a: 1}
+  m_Color: {r: 0.519352, g: 0.5466298, b: 0.6830188, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 24b743d392eb74b43bb977d53000904e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9702,14 +9702,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 286369601767510567, guid: cecb8439047cd6b4fafc78313b59d0ba, type: 3}
-      propertyPath: soundList.Array.data[5].Sound
-      value: 
-      objectReference: {fileID: 8300000, guid: bdf3f8d223a28244980feb41e4fb962b, type: 3}
-    - target: {fileID: 286369601767510567, guid: cecb8439047cd6b4fafc78313b59d0ba, type: 3}
-      propertyPath: soundList.Array.data[6].Sound
-      value: 
-      objectReference: {fileID: 8300000, guid: b0d733507bbdfb54094a2520c83a0718, type: 3}
     - target: {fileID: 2892440647420985575, guid: cecb8439047cd6b4fafc78313b59d0ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

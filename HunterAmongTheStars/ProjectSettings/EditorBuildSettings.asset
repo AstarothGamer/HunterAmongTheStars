@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SpaceBattle.unity
     guid: a6556771a133dea4f85b24dd65b0b69b
+  - enabled: 1
+    path: Assets/Scenes/InterferenceSpace.unity
+    guid: b790000f3b9c8914b91d971c0691ed95
+  - enabled: 1
+    path: Assets/Scenes/SolarMatch.unity
+    guid: 41da6675b84bc1240931c652471b1164
+  - enabled: 1
+    path: Assets/Scenes/Minesweeper.unity
+    guid: 61bcad24a74eb4bf2aca84419a987eb4
+  - enabled: 1
+    path: Assets/Scenes/Bar.unity
+    guid: 7ade3c37521343a49b631dcc9686b71d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -10,13 +10,11 @@ public class ArcadeTrigger : MonoBehaviour
 
     [SerializeField] private GameObject HintUI;
     [SerializeField] private GameObject ArcadeUI;
-    [SerializeField] private TextMeshProUGUI text;
 
     void Start()
     {
         render = GetComponent<Renderer>();
         originalColor = render.material.color; // Store the original color
-        text.text = "drink the beer";
         HintUI.SetActive(false);
     }
     void OnMouseOver()

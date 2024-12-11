@@ -12,7 +12,6 @@ public class DistantAI : ShipAI
     [SerializeField] int projectilesPerShot = 1;
     [SerializeField] float attackRange = 15f;
     [SerializeField] float ShootCooldown = 4f;
-    [SerializeField] float projectileSpread = 15f;
     [SerializeField] float projectileLifetime = 3;
     [SerializeField] float damage = 25f;
     [SerializeField] float projectileSpeed = 20f;
@@ -97,7 +96,7 @@ public class DistantAI : ShipAI
 
         for (int i = 0; i < projectilesPerShot; i++)
         {
-            var go = Instantiate(projectilePrefab, projectileSpawnpoint.position, GetProjectileDirection(projectileSpread));
+            var go = Instantiate(projectilePrefab, projectileSpawnpoint.position, GetProjectileDirection());
             var proj = go.GetComponent<EnemyBullet>();
             InitializeProjectile(proj);
         }
@@ -106,7 +105,7 @@ public class DistantAI : ShipAI
         {
             for (int i = 0; i < projectilesPerShot; i++)
             {
-                var go = Instantiate(projectilePrefab, projectileSpawnpoint2.position, GetProjectileDirection(projectileSpread));
+                var go = Instantiate(projectilePrefab, projectileSpawnpoint2.position, GetProjectileDirection());
                 var proj = go.GetComponent<EnemyBullet>();
                 InitializeProjectile(proj);
             }
@@ -117,10 +116,11 @@ public class DistantAI : ShipAI
     {
         projectile.Initialize(damage, projectileSpeed, projectileLifetime);
     }
-    protected Quaternion GetProjectileDirection(float currentAccuracy)
+    protected Quaternion GetProjectileDirection()
     {
-        float adjustedSpread = Random.Range(-currentAccuracy, currentAccuracy);
-        return Quaternion.Euler(projectileSpawnpoint.rotation.eulerAngles + Vector3.forward * adjustedSpread);
+        Vector3 directionToTarget = (target.position - projectileSpawnpoint.position).normalized;
+        return Quaternion.LookRotation(directionToTarget);
+
     }
 
     void Retreat()
