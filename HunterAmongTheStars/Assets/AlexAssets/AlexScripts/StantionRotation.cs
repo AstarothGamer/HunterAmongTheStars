@@ -13,6 +13,6 @@ public class Rotation1 : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0.0f, 0.01f, 0.0f);
+        transform.Rotate(0.0f, 0.03f, 0.0f);
     }
 }
