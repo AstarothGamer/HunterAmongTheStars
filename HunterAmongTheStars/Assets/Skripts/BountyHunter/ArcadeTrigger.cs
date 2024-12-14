@@ -26,7 +26,7 @@ public class ArcadeTrigger : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             AudioManager.PlaySound(SoundType.Button, 0.7f);
-            SceneLoader.Instance.LoadScene("SolarMatch");
+            SceneLoader.Instance.LoadScene("MemoryGame");
         }
     }
     void OnMouseExit()
