@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             RevealAllMines();
             yield return new WaitForSeconds(2f);
-            SceneManager.LoadScene("memory game");
+            SceneManager.LoadScene("MemoryGame");
         }
     }
 

@@ -261,15 +261,13 @@ public class GameController : MonoBehaviour
     {
         if(timer > 60)
         {
-
-
             isGameActive = false;
             timerText.text = "You lost Memory Planet Game!";
-
-            // startMenuPanel.SetActive(true);
-            // startPlanetMemoryMenuButton.SetActive(false);
-            // restartMenuButton.SetActive(true);
         }
     }
-    // just to check the problem
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("Bar");
+    }
 }
