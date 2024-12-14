@@ -30,15 +30,15 @@ public class DialogSystem : MonoBehaviour
 
         questions.Add(new QuestionsAndAnswers()
         {
-            question = "What is the standard length of a soccer match?",
-            correctAnswer = "90 minutes",
-            wrongAnswer = "60 minutes",
-            neutralAnswer = "120 minutes"
+            question = "Do I use an alarm clock for work?",
+            correctAnswer = "Yes",
+            wrongAnswer = "No",
+            // neutralAnswer = "120 minutes"
         });
 
         questions.Add(new QuestionsAndAnswers()
         {
-            question = "How many players are on the field for one team during the match?",
+            question = "How many players are on the field for one team during the soccer match?",
             correctAnswer = "11 players",
             wrongAnswer = "13 players",
             neutralAnswer = "9 players"
@@ -55,7 +55,7 @@ public class DialogSystem : MonoBehaviour
         questions.Add(new QuestionsAndAnswers()
         {
             question = "What is my favorite drink when working at the station?",
-            correctAnswer = "Coffee",
+            correctAnswer = "Hot chocolate",
             wrongAnswer = "Beer",
             neutralAnswer = "Soda water"
         });
@@ -71,8 +71,8 @@ public class DialogSystem : MonoBehaviour
         questions.Add(new QuestionsAndAnswers()
         {
             question = "Do I like to smoke cigarettes?",
-            correctAnswer = "No",
-            wrongAnswer = "Yes",
+            correctAnswer = "Yes",
+            wrongAnswer = "No",
             neutralAnswer = "Sometimes"
         });
     }

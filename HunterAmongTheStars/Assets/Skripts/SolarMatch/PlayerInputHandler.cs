@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private List<GameObject> playerPlanets; 
+    [SerializeField] private TMP_Text outcomeText;
     [SerializeField] private RandomPlanetSpawner spawner; 
+
+    public int wrongAnswerCount = 0;
 
     private void Update()
     {
@@ -28,7 +32,14 @@ public class PlayerInputHandler : MonoBehaviour
                         else
                         {
                             AudioManager.PlaySound(SoundType.WrongAnswer, 0.7f);
+                            wrongAnswerCount += 1;
 
+                            if(wrongAnswerCount > 2)
+                            {                               
+                                spawner.isGameActive = false;
+
+                                outcomeText.text = "You pressed wrong 3 times. You lost.";
+                            }
                             Debug.Log("Wrong!");
                         }
 

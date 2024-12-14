@@ -2,10 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private Sprite bgImage;
+    [SerializeField] private TMP_Text timerText;
+
+    [SerializeField] private GameObject startMenuPanel;
+    [SerializeField] private GameObject restartMenuButton;
+    [SerializeField] private GameObject startPlanetMemoryMenuButton;
 
     public GameObject[] puzzles;
     private GameObject[] instantiatedObjects;
@@ -21,6 +28,9 @@ public class GameController : MonoBehaviour
 
     private string firstGuessPuzzle, secondGuessPuzzle;
 
+    public float timer = 0;
+    public bool isGameActive = false;
+
 
     void Start()
     {
@@ -31,7 +41,18 @@ public class GameController : MonoBehaviour
         AddGamePuzzles();
         Shuffle(gamePuzzles);
         gameGuesses = gamePuzzles.Count / 2;
-        instantiatedObjects = new GameObject[btns.Count];
+        instantiatedObjects = new GameObject[btns.Count];        
+    }
+
+    void Update()
+    {
+        if(isGameActive)
+        {
+            timer += Time.deltaTime; 
+            timerText.text = "Timer: " + timer.ToString("0.00");
+        }
+
+        GameLost();
     }
 
     void GetButtons()
@@ -179,6 +200,13 @@ public class GameController : MonoBehaviour
             Destroy3DObject(secondGuessIndex);
         }
 
+        if(!isGameActive)
+        {
+            yield return new WaitForSeconds(5);
+
+            SceneManager.LoadScene("MemoryGame");
+        }
+
         // yield return new WaitForSeconds(.5f);
 
         firstGuess = secondGuess = false;
@@ -190,6 +218,13 @@ public class GameController : MonoBehaviour
 
         if(countCorrectGuesses == gameGuesses)
         {
+            isGameActive = false;
+
+            // startMenuPanel.SetActive(true);
+            // startPlanetMemoryMenuButton.SetActive(false);
+            // restartMenuButton.SetActive(true);
+            
+            timerText.text = "You won Memory Planet Game!";
             Debug.Log("Game finished");
             Debug.Log("It took you " + countGuesses + " many guesses to finish the game");
         }
@@ -203,6 +238,37 @@ public class GameController : MonoBehaviour
             int randomIndex = Random.Range(i, list.Count);
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
+        }
+    }
+
+    public void StartGamePlanetMemory()
+    {
+        startMenuPanel.SetActive(false);
+        isGameActive = true;
+    }
+
+    public void StartGameSolarMatch()
+    {
+        SceneManager.LoadScene("SolarMatch");
+    }
+
+    public void StartGameSpaceMinesweeper()
+    {
+        SceneManager.LoadScene("Minesweeper");
+    }
+
+    public void GameLost()
+    {
+        if(timer > 60)
+        {
+
+
+            isGameActive = false;
+            timerText.text = "You lost Memory Planet Game!";
+
+            // startMenuPanel.SetActive(true);
+            // startPlanetMemoryMenuButton.SetActive(false);
+            // restartMenuButton.SetActive(true);
         }
     }
     // just to check the problem

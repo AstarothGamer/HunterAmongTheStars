@@ -2,22 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RandomPlanetSpawner : MonoBehaviour
 {
+    [SerializeField] private GameObject startMenuPanel;
+    [SerializeField] private GameObject restartMenuButton;
+    [SerializeField] private GameObject startMenuButton;
+    [SerializeField] private GameObject planetHandler;
+    [SerializeField] private TMP_Text outcomeText;
+
+    [SerializeField] private TMP_Text timerText;
+
     [SerializeField] private List<GameObject> planets; 
     [SerializeField] private List<Vector3> spawnPos;
     [SerializeField] private Transform bottomBoundary; 
+
     [SerializeField] private float spawnInterval = 0.8f; 
     [SerializeField] private float fallSpeed = 4f; 
     [SerializeField] private TMP_Text scoreText;
 
+    private PlayerInputHandler player;
+
     private Queue<int> spawnQueue = new Queue<int>(); 
     private List<GameObject> spawnedPlanets = new List<GameObject>(); 
 
-    private bool isGameActive = true;
+    public bool isGameActive = true;
 
     private int score;
+    private float timer;
 
     private void Start()
     {
@@ -28,10 +41,17 @@ public class RandomPlanetSpawner : MonoBehaviour
 
     private void Update()
     {
+        if(isGameActive)
+        {
+            timer += Time.deltaTime;
+            timerText.text = "Timer: " + timer.ToString("0.00");
+        }
+
         scoreText.text = "Score " + score;
+        GameWon();
     }
 
-    private IEnumerator SpawnPlanets()
+    public IEnumerator SpawnPlanets()
     {
         while (isGameActive)
         {
@@ -53,6 +73,13 @@ public class RandomPlanetSpawner : MonoBehaviour
 
 
             yield return new WaitForSeconds(spawnInterval);
+        }
+
+        if(!isGameActive) 
+        {
+            yield return new WaitForSeconds(5);
+
+            SceneManager.LoadScene("MemoryGame");
         }
     }
 
@@ -80,6 +107,18 @@ public class RandomPlanetSpawner : MonoBehaviour
      public void OnPlanetMissed()
     {
         isGameActive = false; 
+        outcomeText.text = "The planet touched the battier. You lost";
         Debug.Log("Game ended! Planet touched a lower barier!");
     }
+
+    private void GameWon()
+    {
+        if(timer > 30)
+        {
+            isGameActive = false;
+
+            outcomeText.text = "You survived for 30 seconds and won the game!";
+        }
+    }
+
 }

@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text timerText;
-    [SerializeField] private GameObject lostGamePanel;
-    [SerializeField] private GameObject wonGamePanel;
+    [SerializeField] private TMP_Text outcomeText;
     [SerializeField] private GameObject cellPrefab;
     public bool isGameOver = false;
     public int gridSize = 10;
@@ -118,17 +118,19 @@ public class GameManager : MonoBehaviour
         if (isWin)
         {
             AudioManager.PlaySound(SoundType.WinMusic, 0.7f);
+            outcomeText.text = "You won the game";
             yield return new WaitForSeconds(2f);
             RevealAllMines();
             yield return new WaitForSeconds(2f);
-            wonGamePanel.SetActive(true);
+            SceneManager.LoadScene("MemoryGame");
         }
         else
         {
+            outcomeText.text = "you lost the game";
             yield return new WaitForSeconds(2f);
             RevealAllMines();
             yield return new WaitForSeconds(2f);
-            lostGamePanel.SetActive(true);
+            SceneManager.LoadScene("memory game");
         }
     }
 
