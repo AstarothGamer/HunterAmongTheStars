@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class DialogSystem : MonoBehaviour
     public Button[] answerButtons;
 
     private QuestionsAndAnswers currentQuestion; 
+    public Door door;
+    public bool isGameActive;
+    public bool isGameOver = false;
 
     public float timer;
 
@@ -78,16 +82,35 @@ public class DialogSystem : MonoBehaviour
     }
     void Start()
     {
-        SetRandomQuestion();
+
     }
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        timerText.text = timer.ToString("0.00");
+        if (isGameActive)
+        {
+            timer -= Time.deltaTime;
+            timerText.text = timer.ToString("0.00");
+
+            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                Debug.Log("1");
+                SelectAnswer(0); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                Debug.Log("2");
+                SelectAnswer(1); 
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                SelectAnswer(2); 
+                Debug.Log("3");
+            }
+        }
     }
 
-    void SetRandomQuestion()
+    public void SetRandomQuestion()
     {
         timer = 30;
         if(questions.Count > 0)
@@ -183,6 +206,11 @@ public class DialogSystem : MonoBehaviour
             {
                 LostGamePanel();
             }
+
+            door.isDialogActive = false;
+            isGameOver = true;
+            StartCoroutine(timerOver());
+
         }
 
         else if(questionAsked < 3)
@@ -191,4 +219,23 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
+    void SelectAnswer(int answerIndex)
+    {
+        if (answerIndex >= 0 && answerIndex < answers.Count)
+        {
+            string selectedAnswer = answers[answerIndex];
+            CheckAnswer(selectedAnswer);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid answer index: " + answerIndex);
+        }
+    }
+
+    private IEnumerator timerOver()
+    {
+        yield return new WaitForSeconds(5f);
+        lostGamePanel.SetActive(false);
+        wonGamePanel.SetActive(false);
+    }
 }
