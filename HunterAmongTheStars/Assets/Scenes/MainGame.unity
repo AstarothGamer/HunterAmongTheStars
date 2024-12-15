@@ -411,6 +411,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e8447c55f11130498cfb7a280200f01, type: 2}
   - {fileID: 11400000, guid: cc85047a3408b034f8f2941cb84ca821, type: 2}
   - {fileID: 11400000, guid: 7cd7be749c7cb4d468de7fc610290bb4, type: 2}
+  - {fileID: 11400000, guid: 5781be9bdca9ffe4d8dbbd7fcefb76f8, type: 2}
   encounters:
   - {fileID: 11400000, guid: 6a530da8bbf204143b59665f7f605398, type: 2}
   mission: {fileID: 0}
