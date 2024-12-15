@@ -1,16 +1,11 @@
-﻿// CHANGE LOG
-// 
-// CHANGES || version VERSION
-//
-// "Enable/Disable Headbob, Changed look rotations - should result in reduced camera jitters" || version 1.0.1
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Cinemachine;
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
     using System.Net;
 #endif
 
@@ -21,7 +16,7 @@ public class FirstPersonController : MonoBehaviour
     #region Camera Movement Variables
 
     [Header("Camera")]
-    public Camera playerCamera;
+    public CinemachineCamera playerCam;
 
     public float fov = 60f;
     public bool invertCamera = false;
@@ -33,7 +28,6 @@ public class FirstPersonController : MonoBehaviour
     public bool lockCursor = true;
     public bool crosshair = true;
     public Sprite crosshairImage;
-    public Color crosshairColor = Color.white;
 
     // Internal Variables
     private float yaw = 0.0f;
@@ -156,7 +150,7 @@ public class FirstPersonController : MonoBehaviour
         crosshairObject = GetComponentInChildren<Image>();
 
         // Set internal variables
-        playerCamera.fieldOfView = fov;
+        playerCam.Lens.FieldOfView = fov;
         originalScale = transform.localScale;
         jointOriginalPos = joint.localPosition;
 
@@ -174,14 +168,9 @@ public class FirstPersonController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if(crosshair)
+        if(!crosshair)
         {
-            crosshairObject.sprite = crosshairImage;
-            crosshairObject.color = crosshairColor;
-        }
-        else
-        {
-            crosshairObject.gameObject.SetActive(false);
+            crosshairObject.gameObject.SetActive(false); ;
         }
 
         #region Sprint Bar
@@ -241,7 +230,7 @@ public class FirstPersonController : MonoBehaviour
             pitch = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
 
             transform.localEulerAngles = new Vector3(0, yaw, 0);
-            playerCamera.transform.localEulerAngles = new Vector3(pitch, 0, 0);
+            playerCam.transform.localEulerAngles = new Vector3(pitch, 0, 0);
         }
 
         #region Camera Zoom
@@ -279,11 +268,11 @@ public class FirstPersonController : MonoBehaviour
             // Lerps camera.fieldOfView to allow for a smooth transistion
             if(isZoomed)
             {
-                playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
+                playerCam.Lens.FieldOfView = Mathf.Lerp(playerCam.Lens.FieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
             }
             else if(!isZoomed && !isSprinting)
             {
-                playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, zoomStepTime * Time.deltaTime);
+                playerCam.Lens.FieldOfView = Mathf.Lerp(playerCam.Lens.FieldOfView, fov, zoomStepTime * Time.deltaTime);
             }
         }
 
@@ -297,7 +286,7 @@ public class FirstPersonController : MonoBehaviour
             if(isSprinting)
             {
                 isZoomed = false;
-                playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
+                playerCam.Lens.FieldOfView = Mathf.Lerp(playerCam.Lens.FieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
                 // Drain sprint remaining while sprinting
                 if(!unlimitedSprint)

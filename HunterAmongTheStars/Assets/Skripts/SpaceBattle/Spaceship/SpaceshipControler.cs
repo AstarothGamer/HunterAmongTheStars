@@ -38,6 +38,7 @@ public class SpaceshipControler : MonoBehaviour
 
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.SpaceMusic, 0.7f);
         Center.x = Screen.width * 0.5f;
         Center.y = Screen.height * 0.5f;
 
@@ -74,7 +75,7 @@ public class SpaceshipControler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || (Input.GetKeyDown(KeyCode.Space)) && Input.GetAxis("Vertical") > 0)
         {
             modifier = boost;
-            AudioManager.PlayLoopSound(SoundType.Boost, 0.6f);
+            AudioManager.PlayLoopSound(SoundType.Boost, 0.7f);
 
             FOV = true;
             

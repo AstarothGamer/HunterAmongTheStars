@@ -18,11 +18,31 @@ EditorBuildSettings:
     path: Assets/Scenes/SpaceBattle.unity
     guid: a6556771a133dea4f85b24dd65b0b69b
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/AlexAssets/ISScenes/IS_MainMenu.unity
     guid: 8348ae73b99d87a498f71c5fdd9e013c
   - enabled: 1
     path: Assets/AlexAssets/ISScenes/InterferenceSpace.unity
     guid: b790000f3b9c8914b91d971c0691ed95
+=======
+    path: Assets/Scenes/InterferenceSpace.unity
+    guid: b790000f3b9c8914b91d971c0691ed95
+  - enabled: 1
+    path: Assets/Scenes/SolarMatch.unity
+    guid: 41da6675b84bc1240931c652471b1164
+  - enabled: 1
+    path: Assets/Scenes/Minesweeper.unity
+    guid: 61bcad24a74eb4bf2aca84419a987eb4
+  - enabled: 1
+    path: Assets/Scenes/Bar.unity
+    guid: 7ade3c37521343a49b631dcc9686b71d
+  - enabled: 1
+    path: Assets/Scenes/MemoryGame.unity
+    guid: 2786a040a20546c4db3e5ddf27a79444
+  - enabled: 1
+    path: Assets/Scenes/TheDiplomat.unity
+    guid: 4ac763f59e509834fb72c930a1677c94
+>>>>>>> 43a80a13eaa2691e216a9e5b7373a2bfe916a3df
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

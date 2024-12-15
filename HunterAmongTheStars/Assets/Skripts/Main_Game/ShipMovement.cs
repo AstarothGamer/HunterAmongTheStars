@@ -2,8 +2,9 @@ using Unity.Cinemachine;
 using System.Collections;
 using UnityEngine;
 
-public class ShipMovement : Singleton<ShipMovement>
+public class ShipMovement : MonoBehaviour
 {
+    [SerializeField] private GameDataSO gameData;
     public Transform ship;
     private Transform targetPlanet;
     public float speed = 5f;
@@ -12,13 +13,58 @@ public class ShipMovement : Singleton<ShipMovement>
     public CinemachineCamera Cam;
     public float startDuration = 2.5f;
 
+    private static ShipMovement _instance;
+
+    #region Singleton
+    public static ShipMovement Instance
+    {
+        get
+        {
+            // Check if the instance is already created
+            if (_instance == null)
+            {
+                // Try to find an existing AudioManager in the scene
+                _instance = FindAnyObjectByType<ShipMovement>();
+
+                // If no AudioManager exists, create a new one
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("ShipMovement");
+                    _instance = singletonObject.AddComponent<ShipMovement>();
+                }
+
+                // Make the AudioManager persist across scenes (optional)
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        // If the instance is already set, destroy this duplicate object
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;  // Assign this object as the instance
+        }
+
+        ship.position = gameData.playerPosition;
+    }
+    #endregion
+
     void Start()
     {
+        AudioManager.PlayMusic(SoundType.SpaceMusic, 0.7f);
         Cam.Priority = 1;
     }
     void Update()
     {
-         MoveShipToPlanet();
+        MoveShipToPlanet();
     }
     private IEnumerator Prepare()
     {
@@ -27,7 +73,8 @@ public class ShipMovement : Singleton<ShipMovement>
         if (targetPlanet != null)
         isMoving = true;
 
-        MissionManager.Instance.RandomEvent();
+        AudioManager.PlayLoopSound(SoundType.Boost, 0.4f);
+        //MissionManager.Instance.RandomEvent();
     }
     public void StartMovingToPlanet(Transform target)
     {
@@ -70,6 +117,12 @@ public class ShipMovement : Singleton<ShipMovement>
     }
     void Arrive()
     {
+        if(gameData != null)
+        {
+            gameData.playerPosition = ship.position;
+        }
+
+        AudioManager.StopLoopSoundGradually(0.5f);
         MissionManager.Instance.ArriveAtPlanet();
         isMoving = false;
         Cam.Priority = 1;

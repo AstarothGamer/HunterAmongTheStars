@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -37,10 +35,6 @@ public class Damageable : MonoBehaviour
         {
             Die();
         }
-        else
-        {
-            //play SFX
-        }
     }
 
     public void Heal(float amount)
@@ -61,6 +55,6 @@ public class Damageable : MonoBehaviour
         isDead = true;
         if (Remains != null)
         Instantiate(Remains, gameObject.transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

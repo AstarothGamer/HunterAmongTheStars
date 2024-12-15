@@ -5,23 +5,21 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] Transform Gunpoint;
-    [SerializeField] Camera Cam;
+    [SerializeField] CinemachineCamera Cam;
     public Animator anim;
-    private CinemachineBasicMultiChannelPerlin noise;
     public int bulletsPerShot = 1;
     public float attackTime = 0.5f;
     public float range = 70f;
     public float damage = 5f;
     public float spread = 0f;
+    public bool autoFire = false;
 
     [Header("Aiming Settings")]
-    public float normalFOV = 60f;
-    public float aimFOV = 40f;
-    public float aimTransitionSpeed = 10f; // Speed for the aiming transition
 
     [Header("Ammo Info")]
     public float reloadTime = .7f;
     public int maxAmmo = 15;
+    public bool infiniteAmmo = false;
 
     [Header("Sound Effects")]
     public bool RifleSound = true;
@@ -38,6 +36,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] GameObject shellPrefab;
     [SerializeField] GameObject Impact;
+    [SerializeField] CinemachineBasicMultiChannelPerlin noise;
 
     [Header("Debug")]
     //these are shown in the inspector, but cannot be modified while the game is not running
@@ -51,7 +50,10 @@ public class Gun : MonoBehaviour
         currentAmmo = maxAmmo;
         if (muzzleFlashLight != null )
         muzzleFlashLight.enabled = false;
-
+        if (noise == null)
+        noise = Cam.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        if (noise)
+        noise.FrequencyGain = 0f;
     }
 
     public virtual void Reload()
@@ -84,29 +86,38 @@ public class Gun : MonoBehaviour
         {
             Reload();
         }
-        /*
-        if (Input.GetMouseButton(1) && !isReloading)
+
+        if (autoFire)
         {
-            Aim();
+            if (Input.GetButton("Fire1") && !isReloading)
+            {
+                if (currentAmmo <= 0)
+                {
+                    Reload();
+                    return;
+                }
+
+                if (nextShotMinTime > Time.time)
+                    return;
+
+                Attack();
+            }
         }
         else
         {
-            StopAiming();
-        }
-        */
-
-        if (Input.GetButtonDown("Fire1") && !isReloading)
-        {
-            if (currentAmmo <= 0)
+            if (Input.GetButtonDown("Fire1") && !isReloading)
             {
-                Reload();
-                return;
+                if (currentAmmo <= 0)
+                {
+                    Reload();
+                    return;
+                }
+
+                if (nextShotMinTime > Time.time)
+                    return;
+
+                Attack();
             }
-
-            if (nextShotMinTime > Time.time)
-                return;
-
-            Attack();
         }
 
     }
@@ -128,8 +139,13 @@ public class Gun : MonoBehaviour
 
             // Calculate the direction considering spread
             Vector3 spreadDirection = Cam.transform.forward + new Vector3(x, y, z);
+
             RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, spreadDirection, out hit, range))
+
+            // Invert the LayerMask to ignore specified layers
+            int layerMask = ~9;
+
+            if (Physics.Raycast(Cam.transform.position, spreadDirection, out hit, range, layerMask))
             {
                 Debug.Log(hit.transform.name);
 
@@ -157,6 +173,8 @@ public class Gun : MonoBehaviour
             //CamShake.Instance.Shake(shakeDuration, shakeAmplitude);
 
         nextShotMinTime = Time.time + attackTime;
+
+        if(!infiniteAmmo)
         currentAmmo--;
 
         if (shellEjectionPoint != null && shellPrefab != null)
@@ -164,15 +182,28 @@ public class Gun : MonoBehaviour
     }
     private IEnumerator Flash()
     {
+        if (muzzleFlashLight)
         muzzleFlashLight.enabled = true;
+
+        float normalFOV = Cam.Lens.FieldOfView;
+        Cam.Lens.FieldOfView = Cam.Lens.FieldOfView + 3f;
+
+        if (noise)
+        noise.FrequencyGain = shakeAmplitude;  // Shake
 
         // Wait for the flash duration
         yield return new WaitForSeconds(flashDuration);
 
+        if (muzzleFlashLight)
         muzzleFlashLight.enabled = false;
+
+        Cam.Lens.FieldOfView = normalFOV;
 
         // Wait for the flash duration
         yield return new WaitForSeconds(shakeDuration);
+
+        if (noise)
+        noise.FrequencyGain = 0f;  // Shake
     }
     void EjectShell()
     {

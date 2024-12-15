@@ -4,19 +4,23 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Block
+  - Obstacle
+  - Divider
   - Plasma
+  - PuzzleButton
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post Processing
   - Water
   - UI
   - Enemy
   - Player
   - Plasma
-  - 
-  - 
+  - EnemyProjectile
+  - Background
   - 
   - 
   - 

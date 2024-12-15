@@ -1,5 +1,5 @@
+using Microsoft.Win32.SafeHandles;
 using Unity.Cinemachine;
-using System.Collections;
 using UnityEngine;
 
 public class MissionPoint : MonoBehaviour
@@ -7,7 +7,8 @@ public class MissionPoint : MonoBehaviour
     private Renderer planetRenderer;
     public Color highlightColor = Color.yellow;
     private Color originalColor;
-    public CinemachineCamera planetCam;
+    [SerializeField] CinemachineCamera planetCam;
+    [SerializeField] CinemachineCamera MainCam;
     public bool InFocus = false;
 
     [Header("MiniGame")]
@@ -47,9 +48,10 @@ public class MissionPoint : MonoBehaviour
         planetRenderer.material.color = originalColor;
         planetCam.Priority = 20;
 
-        MissionManager.Instance.DisplayMissionUI(this);
+        AudioManager.PlaySound(SoundType.Button, 0.7f);
         MissionManager.Instance.SelectPlanet(transform);
         ShipMovement.Instance.SelectPlanet(transform);
+        MissionManager.Instance.DisplayMissionUI(this);
         AssignMission();
     }
     void AssignMission()
@@ -64,6 +66,11 @@ public class MissionPoint : MonoBehaviour
 
         InFocus = false;
         planetCam.Priority = 1;
+        if (MainCam)
+        {
+            MainCam.GetComponent<CinemachinePanTilt>().PanAxis.Value = 0;
+            MainCam.GetComponent<CinemachinePanTilt>().TiltAxis.Value = 45;
+        }
         MissionManager.Instance.CloseMissionUI();
     }
 }

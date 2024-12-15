@@ -546,26 +546,26 @@ MonoBehaviour:
   anim: {fileID: 6897918756679522351}
   bulletsPerShot: 1
   attackTime: 0.4
-  range: 50
+  range: 100
   damage: 50
   spread: 0.01
-  normalFOV: 60
-  aimFOV: 40
-  aimTransitionSpeed: 10
+  autoFire: 0
   reloadTime: 1.3
   maxAmmo: 15
+  infiniteAmmo: 0
   RifleSound: 0
   PistolSound: 1
   ShotgunSound: 0
   GunSmoke: {fileID: 1302579284252069669}
   MuzleFlash: {fileID: 7024756622973366921}
   muzzleFlashLight: {fileID: 7780393732570118701}
-  flashDuration: 0.05
+  flashDuration: 0.07
   shakeDuration: 0.5
   shakeAmplitude: 1
   shellEjectionPoint: {fileID: 1353466863736982102}
   shellPrefab: {fileID: 5978122525417774916, guid: bd9472a3655c72c4191fa102032ddab4, type: 3}
   Impact: {fileID: 6238220734821006041, guid: 5ad9667fd68971149879b6b7f6367839, type: 3}
+  noise: {fileID: 0}
   currentAmmo: 0
   nextShotMinTime: 0
   isReloading: 0

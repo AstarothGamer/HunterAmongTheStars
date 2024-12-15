@@ -119,6 +119,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5686819626719018658}
   - {fileID: 3852629244532213877}
   - {fileID: 1247310287831368951}
   - {fileID: 156350343953347695}
@@ -142,20 +143,20 @@ MonoBehaviour:
   isDead: 0
   isVulnerable: 1
   Remains: {fileID: 4404576582971942366, guid: 3cdd40a63cb17ed45a16180f46f2d569, type: 3}
-  CheckForWalls: 1
-  distanceToWalls: 15
   currentState: 0
   sightRange: 50
   attackRange: 30
+  alertRadius: 20
   patrolPoints: []
+  target: 0
   projectilePrefab: {fileID: 8654408248102127676, guid: 5fa6c85023735904fa12f37357d2cfa9, type: 3}
   projectileSpawnpoint: {fileID: 156350343953347695}
   ShootCooldown: 0.5
-  projectileSpeed: 50
+  projectileSpeed: 60
   projectilesPerShot: 1
   projectileLifetime: 3
   projectileSpread: 1
-  damage: 25
+  damage: 30
   RifleSound: 1
   PistolSound: 0
   ShotgunSound: 0
@@ -180,9 +181,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.3, z: 0}
 --- !u!54 &2391959892767623806
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -258,13 +259,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4925259145515076950}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.9384039, z: -0, w: 0.34554034}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4532974245721726068}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -139.57, z: 0}
 --- !u!33 &6276051807869826390
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -349,6 +350,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4532974245721726068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9127487661020408977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5686819626719018658}
+  - component: {fileID: 19225117465819970}
+  - component: {fileID: 8921087373745401525}
+  m_Layer: 6
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5686819626719018658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127487661020408977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4532974245721726068}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &19225117465819970
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127487661020408977}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &8921087373745401525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127487661020408977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29eb99fa3783504ca6b9ef5ceab4c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+  isDead: 0
+  isVulnerable: 1
+  Remains: {fileID: 0}
+  DamageModidfier: 4
+  Owner: {fileID: 4129179514515070133}
 --- !u!1001 &9184866202098059643
 PrefabInstance:
   m_ObjectHideFlags: 0

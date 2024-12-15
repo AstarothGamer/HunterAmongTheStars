@@ -319,13 +319,15 @@ MonoBehaviour:
   - name: Hit
     Sound: {fileID: 8300000, guid: d108b1acfb842774e8898ec1f323a56c, type: 3}
   - name: Damage
-    Sound: {fileID: 8300000, guid: a2b606313838b6b49bb328acd070ed90, type: 3}
+    Sound: {fileID: 8300000, guid: b0d733507bbdfb54094a2520c83a0718, type: 3}
   - name: Death
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: 01ec77b1a94d667428ffb47698764246, type: 3}
   - name: Button
     Sound: {fileID: 8300000, guid: b39c73834953ec0498a14c9060b880f6, type: 3}
   - name: Button2
     Sound: {fileID: 8300000, guid: f8147cfc79f26ae43b23ed6243ba1636, type: 3}
+  - name: Button3
+    Sound: {fileID: 8300000, guid: ccbc0ae91fd3f46e6b8aa6bf472deb16, type: 3}
   - name: Switch
     Sound: {fileID: 8300000, guid: e0a19896ca024d847a25e833d6d46b66, type: 3}
   - name: Item
@@ -339,15 +341,35 @@ MonoBehaviour:
   - name: SpaceshipHeavyShot
     Sound: {fileID: 0}
   - name: SpaceshipLightReloading
-    Sound: {fileID: 8300000, guid: 9b5c59947273fdb48beb6e19b617706d, type: 3}
+    Sound: {fileID: 8300000, guid: 76df5a4b739ea2244895ac162b0ba2e8, type: 3}
+  - name: Explosion
+    Sound: {fileID: 8300000, guid: 5bee0f4a4f035594981b88eef31ec45e, type: 3}
   - name: Boost
     Sound: {fileID: 8300000, guid: 2aa0baa2ac4327340bd694ba1a112bf7, type: 3}
   - name: Money
     Sound: {fileID: 8300000, guid: 07b02722e8160194aad7dee8e99e735d, type: 3}
+  - name: GameOver
+    Sound: {fileID: 8300000, guid: c17026d167955a1449f222c427ab44ed, type: 3}
   - name: CalmMusic
-    Sound: {fileID: 0}
-  - name: BattleMusic
-    Sound: {fileID: 0}
+    Sound: {fileID: 8300000, guid: 4c228551670930f4cbce8dcce5ae1799, type: 3}
+  - name: SpaceMusic
+    Sound: {fileID: 8300000, guid: 5bc26f00ba23099409251325ab6365cd, type: 3}
+  - name: WinMusic
+    Sound: {fileID: 8300000, guid: ee23f78d57ea6434396f57c2c4961cfe, type: 3}
+  - name: BackgroundMusic
+    Sound: {fileID: 8300000, guid: a33e3ffbca8e5488b9c353972091c819, type: 3}
+  - name: BackgroundMusic2
+    Sound: {fileID: 8300000, guid: c634784c6a8734892bf8cec9c13c9217, type: 3}
+  - name: BackgroundMusic3
+    Sound: {fileID: 8300000, guid: f7c30f1555fb948c5a9a1a10db62930f, type: 3}
+  - name: NackgroundMusic4
+    Sound: {fileID: 8300000, guid: 410c1fa017a904d7785564045d8e63c1, type: 3}
+  - name: WrongAnswer
+    Sound: {fileID: 8300000, guid: 1f3f6e1bb151f4f4f8c19ab9dc47157c, type: 3}
+  - name: CorrectAnswer
+    Sound: {fileID: 8300000, guid: 90b9379395cab4b7d9e265c1a6aa7aa3, type: 3}
+  - name: ShooterMusic
+    Sound: {fileID: 8300000, guid: d2471c74fd7aa974db18b8ab9dac8a50, type: 3}
   audioSource: {fileID: 247882777599396141}
   MusicAudioSource: {fileID: 6045458417213379600}
   LoopAudioSource: {fileID: 1992047719521391923}

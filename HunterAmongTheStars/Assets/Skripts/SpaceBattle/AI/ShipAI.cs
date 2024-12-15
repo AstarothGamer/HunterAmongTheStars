@@ -6,7 +6,6 @@ public class ShipAI : Damageable
     [SerializeField] protected float rotationalDamp = 0.5f;
     [SerializeField] protected float speed = 10f;
 
-    // Update is called once per frame
     public virtual void Update()
     {
         Turn();
