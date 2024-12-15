@@ -20,8 +20,13 @@ public class Destination : MonoBehaviour
 
     void Update()
     {
+        //vector1 = point1.position - point2.position;     //Calculating the position difference vector
+        //text1.text = "Distance to target  " + Vector3.Distance(point1.position, point2.position);        //Text update
+
+
         vector1 = point1.position - point2.position;     //Calculating the position difference vector
-        text1.text = "Distance to target  " + Vector3.Distance(point1.position, point2.position);        //Text update
+        distantion = Vector3.Distance(point1.position, point2.position); // Calculate distance
+        text1.text = "Distance to target  " + Mathf.RoundToInt(distantion);
     }
 
 

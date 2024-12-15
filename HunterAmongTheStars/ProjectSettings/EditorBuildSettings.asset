@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SpaceBattle.unity
     guid: a6556771a133dea4f85b24dd65b0b69b
   - enabled: 1
-    path: Assets/Scenes/InterferenceSpace.unity
+    path: Assets/AlexAssets/ISScenes/InterferenceSpace.unity
     guid: b790000f3b9c8914b91d971c0691ed95
   - enabled: 1
     path: Assets/Scenes/SolarMatch.unity
