@@ -5,7 +5,7 @@ public class KillAlll : MonoBehaviour
     [SerializeField] GameObject blink;
     [SerializeField] float duration = 1f;
 
-    [HideInInspector] public int enemies = 0;
+    public int enemies = 0;
 
     private static KillAlll _instance;
 

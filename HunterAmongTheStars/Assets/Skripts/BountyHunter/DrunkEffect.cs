@@ -13,6 +13,7 @@ public class DrunkEffect : MonoBehaviour
 
     private ChromaticAberration chromaticAberration;
     private bool stop = false;
+    public bool trigerFromStart = false;
 
     private void Start()
     {
@@ -27,6 +28,9 @@ public class DrunkEffect : MonoBehaviour
         {
             Debug.LogWarning("Chromatic Aberration is not present in the Volume Profile.");
         }
+
+        if (trigerFromStart)
+        TriggerDizzyness();
     }
 
     public void StopDizzyness()
