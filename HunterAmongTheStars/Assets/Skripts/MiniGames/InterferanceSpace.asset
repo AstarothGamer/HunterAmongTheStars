@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0afaa2c2116084aa96dd25787c8d00, type: 3}
   m_Name: InterferanceSpace
   m_EditorClassIdentifier: 
-  Name: dfsfdvfdbdfg space
-  Description: 
-  Scene: InterferenceSpace
+  Name: Interferance Space
+  Description: 'You''ve received a distress signal from a space station hotel. '
+  Scene: IS_MainMenu

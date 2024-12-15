@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SpaceBattle.unity
     guid: a6556771a133dea4f85b24dd65b0b69b
   - enabled: 1
-    path: Assets/AlexAssets/ISScenes/InterferenceSpace.unity
+    path: Assets/Scenes/InterferenceSpace.unity
     guid: b790000f3b9c8914b91d971c0691ed95
   - enabled: 1
     path: Assets/Scenes/SolarMatch.unity
@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TheDiplomat.unity
     guid: 4ac763f59e509834fb72c930a1677c94
+  - enabled: 1
+    path: Assets/Scenes/IS_MainMenu.unity
+    guid: 8348ae73b99d87a498f71c5fdd9e013c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

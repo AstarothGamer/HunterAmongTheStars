@@ -17,11 +17,6 @@ public class BountyManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI reward;
     [SerializeField] private GameObject outcomeUI;
     [SerializeField] private TMP_Text outcomeText;
-    // public BountyInteraction npcSeva;
-    // public BountyInteraction npcEfim;
-    // public BountyInteraction npcMattais;
-    // public BountyInteraction npcAli;
-    // public BountyInteraction npcAlex;
 
 
     public bool isGameActive = false;
@@ -50,6 +45,7 @@ public class BountyManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("MainMenu");
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 

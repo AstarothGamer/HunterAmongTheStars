@@ -24,7 +24,7 @@ public class End : MonoBehaviour
         {
            
 
-            SceneManager.LoadScene("IS_MainMenu"); 
+            SceneManager.LoadScene("MainGame"); 
 
 
         }
