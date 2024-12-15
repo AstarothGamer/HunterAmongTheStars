@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BountyManager : MonoBehaviour
@@ -45,6 +46,10 @@ public class BountyManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.B) && isGameActive)
         {
             bountyUI.SetActive(!bountyUI.activeSelf);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
