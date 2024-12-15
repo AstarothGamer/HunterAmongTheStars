@@ -16,12 +16,14 @@ public class BountyManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI reward;
     [SerializeField] private GameObject outcomeUI;
     [SerializeField] private TMP_Text outcomeText;
+    // public BountyInteraction npcSeva;
+    // public BountyInteraction npcEfim;
+    // public BountyInteraction npcMattais;
+    // public BountyInteraction npcAli;
+    // public BountyInteraction npcAlex;
 
-    // [Header("Spawner")]
-    // [SerializeField] private List<GameObject> prefabs; // Non-bounty prefabs
-    // [SerializeField] private List<Transform> spawnPoints;
 
-    private bool isGameActive = false;
+    public bool isGameActive = false;
 
 
     private void Start()

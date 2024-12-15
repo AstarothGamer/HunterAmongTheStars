@@ -6,12 +6,20 @@ public class BountyInteraction : MonoBehaviour
     public BountyManager bounty;
     public bool isGameActive = false;
 
+    void Update()
+    {
+        isGameActive = bounty.isGameActive;
+    }
+
     void OnMouseOver()
     {
-        bountyInteraction.SetActive(true);
-        if (Input.GetMouseButtonDown(0))
+        if(isGameActive)
         {
-            bounty.CheckBounty(gameObject);
+            bountyInteraction.SetActive(true);
+            if (Input.GetMouseButtonDown(0))
+            {
+                bounty.CheckBounty(gameObject);
+            }
         }
     }
 
