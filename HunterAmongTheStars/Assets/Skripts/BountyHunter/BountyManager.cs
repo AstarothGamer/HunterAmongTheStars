@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,13 +14,15 @@ public class BountyManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bountyName;
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI reward;
+    [SerializeField] private GameObject outcomeUI;
+    [SerializeField] private TMP_Text outcomeText;
 
-    [Header("Spawner")]
-    [SerializeField] private List<GameObject> prefabs; // Non-bounty prefabs
-    [SerializeField] private List<Transform> spawnPoints;
+    // [Header("Spawner")]
+    // [SerializeField] private List<GameObject> prefabs; // Non-bounty prefabs
+    // [SerializeField] private List<Transform> spawnPoints;
 
     private bool isGameActive = false;
-    public BountyInteraction npcInteraction;
+
 
     private void Start()
     {
@@ -27,7 +30,6 @@ public class BountyManager : MonoBehaviour
         {
             AudioManager.PlayMusic(SoundType.BackgroundMusic3, 0.2f);
             isGameActive = true;
-            npcInteraction.isGameActive = true;
             SetRandomBounty();
         }
         else
@@ -47,20 +49,28 @@ public class BountyManager : MonoBehaviour
 
     public void CheckBounty(GameObject bounty)
     {
-        var identifier = bounty.GetComponent<BountyIdentifier>();
-        if (identifier != null && identifier.bountyData == currentBounty)
+        if(isGameActive)
         {
-            bountyUI.SetActive(false);
-            AudioManager.StopLoopSoundGradually(1);
-            npcInteraction.isGameActive = false;
-            AudioManager.PlaySound(SoundType.Money);
-            Debug.Log("You found the bounty!");
-            AudioManager.PlayMusic(SoundType.BackgroundMusic4, 0.2f);
+            var identifier = bounty.GetComponent<BountyIdentifier>();
+            if (identifier != null && identifier.bountyData == currentBounty)
+            {
+                isGameActive = false;
+                bountyUI.SetActive(false);
+                AudioManager.StopLoopSoundGradually(1);
+                AudioManager.PlaySound(SoundType.Money);
+                outcomeText.text = "You found your target and cought it.";
+                StartCoroutine(timer());
+                Debug.Log("You found the bounty!");
+                AudioManager.PlayMusic(SoundType.BackgroundMusic4, 0.2f);
+            }
+            else
+            {
+                outcomeText.text = "It's the wrong target. Continue your searching";
+                StartCoroutine(timerText());
+                Debug.Log("This is the wrong person!");
+            }
         }
-        else
-        {
-            Debug.Log("This is the wrong person!");
-        }
+
     }
 
 
@@ -91,5 +101,17 @@ public class BountyManager : MonoBehaviour
         }
 
         UpdateBountyUI();
+    }
+
+    private IEnumerator timer()
+    {
+        yield return new WaitForSeconds(5);
+        outcomeUI.SetActive(false);
+    }
+
+    private IEnumerator timerText()
+    {
+        yield return new WaitForSeconds(3);
+        outcomeText.text = "";
     }
 }

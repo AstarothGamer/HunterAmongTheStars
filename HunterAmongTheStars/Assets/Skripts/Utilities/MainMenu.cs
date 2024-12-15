@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
         if (playMusic)
         AudioManager.StopMusicGradually(0.8f);
 
-        SceneLoader.Instance.LoadScene("MainGame");
+        SceneLoader.Instance.LoadScene("Bar");
         Time.timeScale = 1f;
         isPaused = false;
     }

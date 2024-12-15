@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class MissionManager : MonoBehaviour
 {
@@ -100,6 +101,11 @@ public class MissionManager : MonoBehaviour
         if (targetPlanet != null && targetPlanet != currentPlanet && Input.GetKeyDown(moveButton))
         {
             ShipMovement.Instance.StartMovingToPlanet(targetPlanet);
+        }
+        
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Bar");
         }
     }
     public void DisplayMissionUI(MissionPoint obj)
