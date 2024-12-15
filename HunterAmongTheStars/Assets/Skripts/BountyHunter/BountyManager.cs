@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BountyManager : MonoBehaviour
 {
@@ -10,48 +11,51 @@ public class BountyManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject bountyUI; // The UI panel for displaying bounty details
     [SerializeField] private TextMeshProUGUI bountyName;
-    [SerializeField] private SpriteRenderer image;
+    [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI reward;
 
     [Header("Spawner")]
     [SerializeField] private List<GameObject> prefabs; // Non-bounty prefabs
     [SerializeField] private List<Transform> spawnPoints;
 
+    private bool isGameActive = false;
+    public BountyInteraction npcInteraction;
+
     private void Start()
     {
-        SetRandomBounty();//for test
-
-        if (Random.Range(0, 100) > 70) // Chance to spawn a bounty
+        if (Random.Range(0, 100) > 60) // Chance to spawn a bounty
         {
-            SpawnBounty();
+            AudioManager.PlayMusic(SoundType.BackgroundMusic3, 0.2f);
+            isGameActive = true;
+            npcInteraction.isGameActive = true;
+            SetRandomBounty();
         }
-
-        FillTheRoom(); // Spawn other NPCs
+        else
+        {
+            AudioManager.PlayMusic(SoundType.BackgroundMusic4, 0.2f);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.B))
+        if (Input.GetKeyUp(KeyCode.B) && isGameActive)
         {
             bountyUI.SetActive(!bountyUI.activeSelf);
         }
     }
 
-    private void FillTheRoom()
-    {
-        foreach (var spawnPoint in spawnPoints)
-        {
-            int R = Random.Range(0, prefabs.Count);
-            Instantiate(prefabs[R], spawnPoint.position, spawnPoint.rotation);
-        }
-    }
 
     public void CheckBounty(GameObject bounty)
     {
-        if (bounty == currentBounty.prefab)
+        var identifier = bounty.GetComponent<BountyIdentifier>();
+        if (identifier != null && identifier.bountyData == currentBounty)
         {
+            bountyUI.SetActive(false);
+            AudioManager.StopLoopSoundGradually(1);
+            npcInteraction.isGameActive = false;
+            AudioManager.PlaySound(SoundType.Money);
             Debug.Log("You found the bounty!");
-            SetRandomBounty();
+            AudioManager.PlayMusic(SoundType.BackgroundMusic4, 0.2f);
         }
         else
         {
@@ -59,19 +63,6 @@ public class BountyManager : MonoBehaviour
         }
     }
 
-    private void SpawnBounty()
-    {
-        if (spawnPoints.Count > 0)
-        {
-            int R = Random.Range(0, spawnPoints.Count);
-            Instantiate(currentBounty.prefab, spawnPoints[R].position, spawnPoints[R].rotation);
-            spawnPoints.RemoveAt(R); // Avoid duplicate spawns at the same point
-        }
-        else
-        {
-            Debug.LogWarning("No spawn points available for bounty!");
-        }
-    }
 
     private void UpdateBountyUI()
     {
@@ -80,6 +71,7 @@ public class BountyManager : MonoBehaviour
             bountyName.text = currentBounty.name;
             image.sprite = currentBounty.bountyPhoto;
             reward.text = currentBounty.bountyReward.ToString();
+            bountyUI.SetActive(true);
         }
         else
         {

@@ -31,6 +31,9 @@ public enum SoundType
     SpaceMusic,
     WinMusic,
     BackgroundMusic,
+    BackgroundMusic2,
+    BackgroundMusic3,
+    BackgroundMusic4,
     WrongAnswer,
     CorrectAnswer,
     ShooterMusic

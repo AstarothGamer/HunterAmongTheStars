@@ -82,7 +82,7 @@ public class DialogSystem : MonoBehaviour
     }
     void Start()
     {
-
+        AudioManager.PlayLoopSound(SoundType.BackgroundMusic2, 0.2f);
     }
 
     void Update()
