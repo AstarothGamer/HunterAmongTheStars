@@ -74,7 +74,7 @@ public class ShipMovement : MonoBehaviour
         isMoving = true;
 
         AudioManager.PlayLoopSound(SoundType.Boost, 0.4f);
-        MissionManager.Instance.RandomEvent();
+        //MissionManager.Instance.RandomEvent();
     }
     public void StartMovingToPlanet(Transform target)
     {
